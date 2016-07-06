@@ -32,33 +32,33 @@
 0.314 < icmp unreachable precedence_violation
 0.315 < icmp unreachable precedence_cutoff
 
-0.400 < icmp echo_reply
-0.401 < icmp source_quench
-0.402 < icmp redirect
-0.403 < icmp echo_request
-0.404 < icmp time_exceeded
-0.405 < icmp parameter_problem
-0.406 < icmp timestamp_request
-0.407 < icmp timestamp_reply
-0.408 < icmp information_request
-0.409 < icmp information_reply
-0.410 < icmp address_mask_request
-0.411 < icmp address_mask_reply
+0.320 < icmp echo_reply
+0.321 < icmp source_quench
+0.322 < icmp redirect
+0.323 < icmp echo_request
+0.324 < icmp time_exceeded
+0.325 < icmp parameter_problem
+0.326 < icmp timestamp_request
+0.327 < icmp timestamp_reply
+0.328 < icmp information_request
+0.329 < icmp information_reply
+0.330 < icmp address_mask_request
+0.331 < icmp address_mask_reply
 
 // Symbolic types with numeric codes.
-0.450 < icmp unreachable code_0
-0.451 < icmp unreachable code_1
-0.452 < icmp unreachable code_255
+0.340 < icmp unreachable code_0
+0.341 < icmp unreachable code_1
+0.342 < icmp unreachable code_255
 
 // Numeric types with numeric codes
-0.460 < icmp type_0 code_0
-0.461 < icmp type_1 code_0
-0.462 < icmp type_255 code_0
+0.345 < icmp type_0 code_0
+0.346 < icmp type_1 code_0
+0.347 < icmp type_255 code_0
 
-0.470 < . 1:1(0) ack 1 win 65535
+0.350 < . 1:1(0) ack 1 win 65535
 
 // We close the connection
-0.500 close(4) = 0
-0.500 > F. 1:1(0) ack 1 win 1026
-0.510 < F. 1:1(0) ack 2 win 65535
-0.510 > . 2:2(0) ack 2
+0.400 close(4) = 0
+0.400 > F. 1:1(0) ack 1 win 1026
+0.410 < F. 1:1(0) ack 2 win 65535
+0.410 > . 2:2(0) ack 2
