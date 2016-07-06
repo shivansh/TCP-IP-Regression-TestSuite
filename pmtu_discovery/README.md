@@ -13,3 +13,7 @@ After writing 10 data segments, the receiver should send an ICMP message saying 
 ```
 From the **MTU** specified in the ICMP message, sender should retransmit `cwnd` packets.<br>
 However, everything runs smooth except that receiver never sends an ICMP message.
+
+## Todo
+
+* FreeBSD TUN device does not support TSO, check this test on separate machines using remote mode in packetdrill.

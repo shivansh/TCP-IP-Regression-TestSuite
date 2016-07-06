@@ -10,7 +10,7 @@
 
 ## Description
 
-* After calling `shutdown(4, SHUT_RD)`, `read()` should not be able to run. However, we still get **0** as a return value instead of **-1**.
+* After calling `shutdown(4, SHUT_RD)`, `read()` should not be able to run. However, we still get **0** as a return value instead of **-1**, though `read()` isn't getting called.
 ```
 tests/bsd/tcp/shutdown/shutdown-rd.pkt:18: runtime error in read call: Expected result -1 but got 0
 ```
