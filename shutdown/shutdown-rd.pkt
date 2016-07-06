@@ -16,12 +16,16 @@
 
 // Verify if read works (It should not work)
 0.250 read(4, ..., 1000) = 0
+/** Expected behavior : read() should return -1. **/
 
 // What happens when client sends some data at this instance?
 0.260 < P. 1:1001(1000) ack 1 win 65535
 
+// Current FreeBSD behavior
 // We respond with a delayed ack
 0.360 > . 1:1(0) ack 1001 <...>
+
+/** Expected behavior : We should respond with an RST. **/
 
 // Verify whether writing and sending works
 
