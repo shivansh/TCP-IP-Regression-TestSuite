@@ -1,11 +1,13 @@
 // Test for checking if the client generates a FIN
 // after we close an established connection.
 
+// Create a listening TCP socket
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
 0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
 0.000 bind(3, ..., ...) = 0
 0.000 listen(3, 1) = 0
 
+// Establish a connection
 0.100 < S 0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
 0.100 > S. 0:0(0) ack 1 <...>
 0.200 < . 1:1(0) ack 1 win 65535
