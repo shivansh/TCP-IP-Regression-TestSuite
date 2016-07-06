@@ -1,11 +1,12 @@
 // Test for Path MTU Discovery
 
-// Establish the connection
+// Create a listening TCP socket
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
 0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
 0.000 bind(3, ..., ...) = 0
 0.000 listen(3, 1) = 0
 
+// Establish the connection
 0.100 < S 0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
 0.100 > S. 0:0(0) ack 1 <...>
 0.200 < . 1:1(0) ack 1 win 65535
@@ -15,6 +16,16 @@
 0.200 write(4, ..., 14600) = 14600
 0.200 > P. 1:14601(14600) ack 1
 
-/*0.210 < . 1:1 (0) ack 1461 win 1026*/
+/** Expected behavior **
+  * We get an ICMP message saying fragmentation is required
+  */
 
-0.250 < [1:1461(1460)] icmp unreachable frag_needed mtu 1200
+0.250 < [1:1461(1460)] icmp unreachable frag_needed mtu 1500
+
+/** At this point TCP stack should pick up packet size using
+  * the MTU from the ICMP message , and retransmit 'cwnd' packets
+  */
+
+/** Observed behavior **
+  * Instead of getting an ICMP message, we directly start retransmitting.
+  */
