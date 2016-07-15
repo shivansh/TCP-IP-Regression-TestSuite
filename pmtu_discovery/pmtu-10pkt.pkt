@@ -9,8 +9,8 @@
 // Establish the connection
 0.100 < S 0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
 0.100 > S. 0:0(0) ack 1 <...>
-0.200 < . 1:1(0) ack 1 win 65535
-0.200 accept(3, ..., ...) = 4
+0.100 < . 1:1(0) ack 1 win 65535
+0.100 accept(3, ..., ...) = 4
 
 // We send 10 data segments
 0.200 write(4, ..., 14600) = 14600
