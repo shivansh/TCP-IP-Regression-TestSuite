@@ -16,16 +16,16 @@
 0.200 write(4, ..., 14600) = 14600
 0.200 > P. 1:14601(14600) ack 1
 
-/** Expected behavior **
-  * We get an ICMP message saying fragmentation is required
-  */
+/* Expected behavior
+ * We get an ICMP message saying fragmentation is required
+ */
 
 0.250 < [1:1461(1460)] icmp unreachable frag_needed mtu 1500
 
-/** At this point TCP stack should pick up packet size using
-  * the MTU from the ICMP message , and retransmit 'cwnd' packets
-  */
+/* At this point TCP stack should pick up packet size using
+ * the MTU from the ICMP message , and retransmit 'cwnd' packets
+ */
 
-/** Observed behavior **
-  * Instead of getting an ICMP message, we directly start retransmitting.
-  */
+/* Observed behavior
+ * Instead of getting an ICMP message, we directly start retransmitting.
+ */
