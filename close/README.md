@@ -12,4 +12,4 @@
 
 * Simultaneous connection close can be visualised by -
 ![Simultaneous-Close](http://www.tcpipguide.com/free/diagrams/tcpclosesimul.png)<br>
-However while testing, the server first has to acknowledge client's **FIN** before it can send out it's own **FIN**.
+However while testing, the server first has to acknowledge client's **FIN** before it can send out it's own **FIN**, even though they both initiate a call to `close()` simultaneously.
