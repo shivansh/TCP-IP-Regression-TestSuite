@@ -6,7 +6,7 @@
 [close-read-data-fin](close-read-data-fin.pkt)     | Passed
 [close-write-data-ack](close-write-data-ack.pkt)   | Passed
 [close-unread-data-ack](close-unread-data-ack.pkt) | Passed
-[simultaneous-close](simultaneous-close.pkt)       |
+[simultaneous-close](simultaneous-close.pkt)       | Doubtful
 
 ## Description
 
