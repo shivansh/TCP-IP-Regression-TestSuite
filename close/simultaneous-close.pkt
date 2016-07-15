@@ -1,0 +1,27 @@
+// Test for checking simultaneous connection close
+
+// Create a listening TCP socket
+0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
+0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+0.000 bind(3, ..., ...) = 0
+0.000 listen(3, 1) = 0
+
+// Establish a connection
+0.100 < S  0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
+0.100 > S. 0:0(0) ack 1 <...>
+0.100 < .  1:1(0) ack 1 win 65535
+0.100 accept(3, ..., ...) = 4
+
+// Client closes the connection
+0.150 < F. 1:1(0) ack 1 win 65535
+
+// We simultaneously close the connection
+0.150 close(4) = 0
+
+// However, we first acknowledge client's FIN
+// before sending out a FIN
+0.150 > .  1:1(0) ack 2 <...>
+0.150 > F. 1:1(0) ack 2 <...>
+
+// Client sends an ACK
+0.150 < .  2:2(0) ack 2 win 65535
