@@ -26,18 +26,18 @@ assert tcpi_rto == 3000000
 0.110 > P. 4001:5001(1000) ack 1
 
 // Receiver acknowledges only 1 segment
-0.110 < . 1:1(0) ack 2001 win 65535
+// 0.110 < . 1:1(0) ack 2001 win 65535
 
 // Retransmission timeout occurs
-// We start sending missing segments
-0.350 > . 2001:3001(1000) ack 1
+// We start sending missing segments after 3 seconds
++3.0 > . 1:1001(1000) ack 1
 
-0.350 < . 1:1(0) ack 1001 win 65535 <sack 2001:3001, nop, nop>
+// 0.350 < . 1:1(0) ack 1001 win 65535 <sack 2001:3001, nop, nop>
 
 // Retransmission timeout occurs
 // We send the missing segment taking the last
 // acknowledged segment number as reference
-0.650 > . 1001:2001(1000) ack 1
+// 0.650 > . 1001:2001(1000) ack 1
 
 /** Observed behavior ~>
   * However at this point, we send the previous data
