@@ -37,9 +37,7 @@
 0.300 > . 1001:2001(1000) ack 1
 
 // TODO~ This assertion is not supported in FreeBSD.
-0.300 %{
-assert tcpi_retrans == 1
-}%
+0.300 %{ assert tcpi_retrans == 1 }%
 
 // Receiver ACKs all data.
 0.300 < . 1:1(0) ack 5001 win 257
