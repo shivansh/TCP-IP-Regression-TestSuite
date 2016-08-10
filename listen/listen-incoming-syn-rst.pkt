@@ -1,6 +1,6 @@
 // Test behavior when a listener gets an incoming packet from new
 // sender on a non-established session that has the SYN and RST bits set.
-// The listener should send a RESET.
+// The listener should not respond to avoid infinite RST ping-pong storms.
 // Checking if we can establish a connection with the client
 // after a connection reset.
 
