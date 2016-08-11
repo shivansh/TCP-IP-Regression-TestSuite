@@ -6,6 +6,7 @@
 [Fast-Recovery](fast-recovery.pkt)| Failed
 
 ## Description
+**NOTE :** The test is still incomplete.
 After multiple segments are lost (non-continuous), the sender is supposed to retransmit as a result of 3 **dupacks**.
 ```
 0.330 > . 1:1001(1000) ack 1
