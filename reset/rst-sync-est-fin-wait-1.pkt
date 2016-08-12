@@ -1,5 +1,4 @@
-// Test for handling reset from synchronized(established) state.
-// The connection should abort immediately.
+// Test for handling reset from synchronized(FIN_WAIT_1) state.
 
 // Create a listening TCP socket
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
@@ -9,12 +8,14 @@
 
 // Establish a connection
 0.100 < S  0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
-0.100 > S. 0:0(0) ack 1 <...>
-0.100 < .  1:1(0) ack 1 win 65535
-0.100 accept(3, ..., ...) = 4
+0.100 > S. 0:0(0) ack 1 win 65535 <...>
+
+// We transition to FIN_WAIT_1
+0.100 close(4) = 0
+0.100 > F. 0:0(0) ack 1 win 65535 <...>
 
 // Client resets the connection
-0.110 < R 0:0(0) win 65535
+0.110 < R 1:1(0) win 65535
 
 // Our application writes 1000 bytes
 0.120 write(4, ..., 1000) = 1000
@@ -23,7 +24,7 @@
 // Client sends one ACK
 0.130 < . 1:1(0) ack 1001 win 65535
 
-// Client sends one data segment
+// Client writes 1000 bytes
 0.140 < P. 1:1001(1000) ack 1001 win 65535
 
 // We send a delayed ACK

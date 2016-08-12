@@ -1,5 +1,5 @@
 // Test for checking whether we move to passive open state
-// when a RST is received from non-synchronised state.
+// when a RST is received from non-synchronized state.
 
 // Create a listening TCP socket
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
