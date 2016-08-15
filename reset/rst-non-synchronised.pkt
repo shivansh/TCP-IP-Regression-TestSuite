@@ -7,15 +7,15 @@
 0.000 bind(3, ..., ...) = 0
 0.000 listen(3, 1) = 0
 
-0.100 < S 0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
+0.100 < S  0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
 0.100 > S. 0:0(0) ack 1 <...>
-0.100 < R 0:0(0) win 65535
+0.100 < R  1:1(0) win 65535
 
 // Check if we revert back to passive open state
 // by establishing a connection when a valid SYN arrives.
 0.110 < S  0:0(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
-0.110 > S. 0:0(0) ack 1 <...>
-0.110 < .  0:0(0) ack 1 win 65535
+0.110 > S. 0:0(0) ack 1 win 65535 <...>
+0.110 < .  1:1(0) ack 1 win 65535
 0.110 accept(3, ..., ...) = 4
 
 // Our application writes 1000 bytes
