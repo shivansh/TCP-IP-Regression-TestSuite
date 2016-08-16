@@ -20,13 +20,17 @@
 0.110 < .  1:1(0) ack 1 win 65535
 
 // We transition to TIME_WAIT configuration
-// It takes ~ 3 seconds for this transition
-3.110 > F. 1:1(0) ack 1 <...>
-3.120 < .  1:1(0) ack 2 win 65535
+0.110 < F. 1:1(0) ack 1 win 65535
+
+// TODO~ Apparently at this stage we are supposed to send an ACK,
+// however the actual intercepted packet is a FIN ACK.
+0.120 > F. 1:1(0) ack 2 <...>
+
+// The connection is entirely closed at this state.
 
 // Client resets the connection
-3.130 < R 1:1(0) win 65535
+0.130 < R 1:1(0) win 65535
 
 // Our application writes 1000 bytes
 // This should produce a runtime error, since the connection has been reset.
-3.130 write(4, ..., 1000) = 1000
+0.130 write(4, ..., 1000) = 1000
