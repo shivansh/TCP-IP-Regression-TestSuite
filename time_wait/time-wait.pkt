@@ -20,7 +20,6 @@
 0.110 < .  1:1(0) ack 1 win 65535
 
 // We transition to TIME_WAIT configuration
-// It takes ~ 3 seconds for this transition.
 0.210 < F. 1:1(0) ack 1 win 65535
 
 // TODO~ Apparently at this stage we are supposed to send an ACK,
