@@ -13,7 +13,7 @@
 0.100 < . 1:1(0) ack 1 win 65535
 0.100 accept(3, ..., ...) = 4
 
-// 0.110 %{ assert tcpi_rto == 3000000  }%
+0.110 %{ assert tcpi_rto == 3000000  }%
 
 // We write 10 data segments.
 0.110 write(4, ..., 10000) = 10000
@@ -36,6 +36,8 @@
 
 // After retranmitting lost packet, we then wait for an ACK.
 // This time the value of rto is ~ 6 seconds.
+
+3.110 %{ assert tcpi_rto == 6200000 }%
 
 // We can now send 2 segments consecutively.
 3.110 > .  1001:2001(1000) ack 1
