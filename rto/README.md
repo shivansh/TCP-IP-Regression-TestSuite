@@ -3,7 +3,7 @@
 ## Status
 |                       Name                        |  Result (FreeBSD)  |
 |:-------------------------------------------------:|:------------------:|
-[Retransmission Timeout](retransmission_timeout.pkt)|  Failed
+[Retransmission Timeout](retransmission_timeout.pkt)| Verification Required
 
 ## Description
 ~~After the receiver **SACK**s one out of five data segments, the sender should retransmit the segment starting from the next acknowledged segment number (in this case 1001:2001) after **RTO**. However, the sender again retransmits the previously retransmitted segment.<br>~~
