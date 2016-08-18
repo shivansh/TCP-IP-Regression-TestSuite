@@ -1,4 +1,4 @@
-// Test for Retransmission Timeout with 5 packets outstanding.
+// Test for Retransmission Timeout with 10 packets outstanding.
 // Receiver in this case supports Sack.
 
 // Create a listening TCP socket
@@ -15,17 +15,17 @@
 
 // 0.110 %{ assert tcpi_rto == 3000000  }%
 
-// We write 5 data segments
+// We write 10 data segments.
 0.110 write(4, ..., 10000) = 10000
-0.110 > .     1:1001(1000)  ack 1
-0.110 > .  1001:2001(1000)  ack 1
-0.110 > .  2001:3001(1000)  ack 1
-0.110 > .  3001:4001(1000)  ack 1
-0.110 > .  4001:5001(1000)  ack 1
-0.110 > .  5001:6001(1000)  ack 1
-0.110 > .  6001:7001(1000)  ack 1
-0.110 > .  7001:8001(1000)  ack 1
-0.110 > .  8001:9001(1000)  ack 1
+0.110 > .     1:1001 (1000) ack 1
+0.110 > .  1001:2001 (1000) ack 1
+0.110 > .  2001:3001 (1000) ack 1
+0.110 > .  3001:4001 (1000) ack 1
+0.110 > .  4001:5001 (1000) ack 1
+0.110 > .  5001:6001 (1000) ack 1
+0.110 > .  6001:7001 (1000) ack 1
+0.110 > .  7001:8001 (1000) ack 1
+0.110 > .  8001:9001 (1000) ack 1
 0.110 > P. 9001:10001(1000) ack 1
 
 // Retransmission timeout occurs
@@ -53,9 +53,9 @@
 3.110 < .   1:1(0) ack 6001 win 65535
 
 // We can now send 4 segments consecutively.
-3.110 > .  6001:7001(1000) ack 1
-3.110 > .  7001:8001(1000) ack 1
-3.110 > .  8001:9001(1000) ack 1
+3.110 > .  6001:7001 (1000) ack 1
+3.110 > .  7001:8001 (1000) ack 1
+3.110 > .  8001:9001 (1000) ack 1
 3.110 > P. 9001:10001(1000) ack 1
 
 // Receiver ACKs all the remaining segments.
