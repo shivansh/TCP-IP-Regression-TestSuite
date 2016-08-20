@@ -35,30 +35,27 @@
 0.230 < . 1:1(0) ack 1 win 320 <sack 1001:3001 8001:9001,nop,nop>
 
 // Enter fast recovery.
+0.230 > . 1:1001(1000) ack 1
 // At this point the receiver has to ACK the retransmitted segment
 // else the sender simply waits for retransmission timeout to occur
-// since the value of congestion window is currently 1.
-0.230 > . 1:1001(1000) ack 1
+// since the value of congestion window is currently 1 due to slowstart.
+
+// An ACK advances snd_una.
 0.240 < . 1:1(0) ack 3001 win 320 <sack 1:3001 8001:9001,nop,nop>
 
 // The congestion window is now 2, so we can send 2 segments.
 0.240 > . 3001:4001(1000) ack 1
 0.240 > . 4001:5001(1000) ack 1
-0.250 < . 1:1(0) ack 5001 win 320 <sack 8001:9001,nop,nop>
-
-// An ACK advances snd_una.
-0.250 > . 5001:6001(1000) ack 1
 
 // The following ACK was reordered - delayed so that it arrives with
 // an ACK field below snd_una. Here we check that the newly-SACKed
 // 2MSS at 5001:7001 cause us to send out 1 more MSS.
-0.260 < . 1:1(0) ack 6001 win 320 <sack 5001:7001,nop,nop>
-0.260 > . 6001:7001(1000) ack 1
-0.260 > . 7001:8001(1000) ack 1
+0.250 < . 1:1(0) ack 3001 win 320 <sack 5001:7001,nop,nop>
+0.250 > . 7001:8001(1000) ack 1
 
 // Receiver ACKs all data.
-0.270 < . 1:1(0) ack 10001 win 320
+0.260 < . 1:1(0) ack 10001 win 320
 
 // Write another 10 MSS, of which 5MSS (cwnd=ssthresh) should go out:
-0.270 write(4, ..., 1000) = 1000
-0.270 > P. 10001:11001(1000) ack 1
+0.260 write(4, ..., 1000) = 1000
+0.260 > P. 10001:11001(1000) ack 1
