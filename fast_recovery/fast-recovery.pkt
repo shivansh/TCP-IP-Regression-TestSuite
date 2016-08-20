@@ -56,6 +56,8 @@
 // Receiver ACKs all data.
 0.260 < . 1:1(0) ack 10001 win 320
 
-// Write another 10 MSS, of which 5MSS (cwnd=ssthresh) should go out:
-0.260 write(4, ..., 1000) = 1000
-0.260 > P. 10001:11001(1000) ack 1
+// Write another 5 MSS, of which 4MSS (cwnd=ssthresh) should go out:
+// The size of congestion window now is again 1 due to multiplicative decrease.
+0.260 write(4, ..., 5000) = 5000
+0.260 > .  10001:11001(1000)  ack 1 win 1031 <...>
+// We will wait for ACK until rto.
