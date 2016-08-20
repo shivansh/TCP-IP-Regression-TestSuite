@@ -2,8 +2,7 @@
 // In this variant we verify that the sender uses SACK info on an ACK
 // below snd_una.
 // This variant tests behavior with Reno congestion control.
-
-/*`sysctl -q net.ipv4.tcp_congestion_control=reno`*/
+--tolerance_usecs=100000
 
 // Establish a connection.
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
@@ -29,36 +28,37 @@
 0.200 > .  8001:9001(1000)  ack 1 win 1031 <...>
 0.200 > P. 9001:10001(1000) ack 1 win 1031 <...>
 
-// Lost packet 1:1001, 4001:5001, 7001:8001.
+// Lost packet 1:1001, 3001:5001, 7001:8001.
 // Lots of reordering in both directions.
-0.310 < . 1:1(0) ack 1 win 320 <sack 1001:2001,nop,nop>
-0.320 < . 1:1(0) ack 1 win 320 <sack 1001:3001,nop,nop>
-0.330 < . 1:1(0) ack 1 win 320 <sack 1001:3001 8001:9001,nop,nop>
+0.210 < . 1:1(0) ack 1 win 320 <sack 1001:2001,nop,nop>
+0.220 < . 1:1(0) ack 1 win 320 <sack 1001:3001,nop,nop>
+0.230 < . 1:1(0) ack 1 win 320 <sack 1001:3001 8001:9001,nop,nop>
 
 // Enter fast recovery.
-0.330 > . 1:1001(1000) ack 1
-
 // At this point the receiver has to ACK the retransmitted segment
-// else the sender simply waits for retransmission timeout to occur.
+// else the sender simply waits for retransmission timeout to occur
+// since the value of congestion window is currently 1.
+0.230 > . 1:1001(1000) ack 1
+0.240 < . 1:1(0) ack 3001 win 320 <sack 1:3001 8001:9001,nop,nop>
 
-0.330 > . 3001:4001(1000) ack 1
+// The congestion window is now 2, so we can send 2 segments.
+0.240 > . 3001:4001(1000) ack 1
+0.240 > . 4001:5001(1000) ack 1
+0.250 < . 1:1(0) ack 5001 win 320 <sack 8001:9001,nop,nop>
 
 // An ACK advances snd_una.
-0.440 < . 1:1(0) ack 4001 win 320 <sack 8001:9001,nop,nop>
-0.440 > . 4001:5001(1000) ack 1
-0.440 > . 5001:6001(1000) ack 1
+0.250 > . 5001:6001(1000) ack 1
 
 // The following ACK was reordered - delayed so that it arrives with
 // an ACK field below snd_una. Here we check that the newly-SACKed
 // 2MSS at 5001:7001 cause us to send out 1 more MSS.
-0.450 < . 1:1(0) ack 3001 win 320 <sack 5001:7001,nop,nop>
-0.450 > . 7001:8001(1000) ack 1
+0.260 < . 1:1(0) ack 6001 win 320 <sack 5001:7001,nop,nop>
+0.260 > . 6001:7001(1000) ack 1
+0.260 > . 7001:8001(1000) ack 1
 
 // Receiver ACKs all data.
-0.560 < . 1:1(0) ack 10001 win 320
+0.270 < . 1:1(0) ack 10001 win 320
 
 // Write another 10 MSS, of which 5MSS (cwnd=ssthresh) should go out:
-0.600 write(4, ..., 10000) = 10000
-0.600 > . 10001:15001(5000) ack 1
-
-/*0.700 `sysctl -q net.ipv4.tcp_congestion_control=cubic`*/
+0.270 write(4, ..., 1000) = 1000
+0.270 > P. 10001:11001(1000) ack 1
