@@ -17,11 +17,12 @@
 0.100 > F. 1:1(0) ack 1 <...>
 
 // We transition to FIN_WAIT_2
-0.110 < .  1:1(0) ack 1 win 65535
+0.110 < .  1:1(0) ack 2 win 65535
 
 // We transition to TIME_WAIT configuration
-0.210 < F. 1:1(0) ack 1 win 65535
+// It takes ~ 3 seconds for this transition.
+0.210 < F. 1:1(0) ack 2 win 65535
 
 // TODO~ Apparently at this stage we are supposed to send an ACK,
 // however the actual intercepted packet is a FIN ACK.
-0.220 > F.  1:1(0) ack 2 <...>
+0.220 > . 2:2(0) ack 2 <...>
