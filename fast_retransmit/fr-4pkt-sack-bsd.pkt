@@ -33,7 +33,8 @@
 0.300 < . 1:1(0) ack 1001 win 257 <sack 2001:4001,nop,nop>
 0.300 < . 1:1(0) ack 1001 win 257 <sack 2001:5001,nop,nop>
 
-// We've received 3 duplicate ACKs, so we do a fast retransmit for the missing segment.
+// We've received 3 duplicate ACKs, so we do a fast retransmit
+// for the missing segment.
 0.300 > . 1001:2001(1000) ack 1
 
 // TODO~ This assertion is not supported in FreeBSD.
