@@ -3,7 +3,7 @@
 ## Status
 |         Name          | Result(FreeBSD) |
 |:---------------------:|:---------------:|
-[init_rto](init_rto.pkt)| Verification required
+[init_rto](init_rto.pkt)| Passed
 
 ## Description
 Log for the test run -
