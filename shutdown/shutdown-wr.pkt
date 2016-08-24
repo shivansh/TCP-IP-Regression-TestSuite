@@ -1,6 +1,6 @@
 // Borrowed from https://github.com/google/packetdrill
 // This test checks for the behavior of the sequence
-// shutdown(SHUT_RD), read, shutdown(SHUT_WR), write(), close()
+// shutdown(SHUT_WR), write(), close()
 --tolerance_usecs=100000
 
 // Establish the connection
@@ -15,13 +15,11 @@
 0.200 accept(3, ..., ...) = 4
 
 0.210 shutdown(4, SHUT_WR) = 0
+0.210 write(4, ..., 1000) = -1 EPIPE (Broken pipe)
 0.210 > F. 1:1(0) ack 1
 0.210 < . 1:1(0) ack 2 win 65535
 
-// Verify if write works (It should not work)
-0.220 write(4, ..., 1000) = -1 EPIPE (Broken pipe)
+0.220 close(4) = 0
 
-0.230 close(4) = 0
-
-0.240 < F. 1:1(0) ack 2 win 65535
-0.240 > . 2:2(0) ack 2
+0.230 < F. 1:1(0) ack 2 win 65535
+0.230 > . 2:2(0) ack 2
