@@ -1,7 +1,5 @@
 # TCP-IP-Regression-TestSuite
 
-All the code written during GSOC-16 for the regression testing of TCP stack in FreeBSD. The tests are based on _packetdrill_.<br>
-
 ## Overview
 
 Regression testing is one of the most critical elements of the test artifacts and proves to be one of the most preventive measures for testing a software. Currently, within FreeBSD, there is no such tool to perform regression testing of the TCP/IP network stack. The purpose of this project is to develop tests using a regression testing tool which can then be integrated with FreeBSD. Once integrated, the tool will also facilitate further development of such tests. The regression testing tool of choice here is _packetdrill_.
@@ -28,7 +26,7 @@ While valuable for measuring overall performance, TCP regression testing with _n
 |Initial window|1|Passed|
 |PMTU discovery|1|Passed|
 |Retransmission Timeout|2|Passed|
-|Socket Shutdown|3|[Failed](https://github.com/shivrai/TCP-IP-Regression-TestSuite/tree/master/shutdown#tests-for-checking-behavior-of-socket-shutdown)
+|Socket Shutdown|3|Passed|
 |Undo|2|Passed|
 |Connect|1|Passed|
 |TCP options establishment|5|Passed|
