@@ -14,7 +14,6 @@
 0.100 < . 1:1(0) ack 1 win 257
 0.100  accept(3, ..., ...) = 4
 
-// Send 1 data segment and get an ACK, so cwnd is now 4.
 0.100 write(4, ..., 1000) = 1000
 0.100 > P. 1:1001(1000) ack 1
 
@@ -36,9 +35,6 @@
 // We've received 3 duplicate ACKs, so we do a fast retransmit
 // for the missing segment.
 0.300 > . 1001:2001(1000) ack 1
-
-// TODO~ This assertion is not supported in FreeBSD.
-0.300 %{ assert tcpi_retrans == 1 }%
 
 // Receiver ACKs all data.
 0.300 < . 1:1(0) ack 5001 win 257
