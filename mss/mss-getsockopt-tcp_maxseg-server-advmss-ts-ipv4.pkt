@@ -1,7 +1,9 @@
+// Borrowed from https://github.com/google/packetdrill
 // Test that getsockopt of TCP_MAXSEG works on passive/server TCP connections.
 // In this variant we test that we get the expected result when
 // the routing config specifies an "advmss 1430 mtu lock 1470" for the
 // route to the remote IP under test.
+--tolerance_usecs=100000
 
 // To ensure that we do not cache something that interferes with other tests:
 // --remote_ip="192.0.2.2"

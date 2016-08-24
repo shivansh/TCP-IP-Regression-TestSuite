@@ -1,6 +1,8 @@
+// Borrowed from https://github.com/google/packetdrill
 // Test that receiver-side RTT estimation is sane when
 // using TCP timestamps. We assert that the receive-side
 // RTT estimate is between 95 and 105ms.
+--tolerance_usecs=100000
 
 // Use a small receive buffer so that we advertise small windows, to keep the
 // test short.

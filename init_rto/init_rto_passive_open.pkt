@@ -1,5 +1,7 @@
+// Borrowed from https://github.com/google/packetdrill
 // A test of initRTO (sysctl_tcp_synack_rto, default to 1sec) for
 // the passive open side.
+--tolerance_usecs=100000
 
 // We want the SYN-ACK to be retransmitted 3 sec after the SYN, but
 // usually it happens at 3.2 or 3.4 sec due to the fact that the

@@ -1,5 +1,5 @@
 // Test for Path MTU Discovery
-
+// Borrowed from https://github.com/google/packetdrill
 --mtu=15000
 --tolerance_usecs=10000
 

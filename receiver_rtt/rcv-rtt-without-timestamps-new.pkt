@@ -1,3 +1,4 @@
+// Borrowed from https://github.com/google/packetdrill
 // Test that receiver-side RTT estimation is sane when
 // *not* using TCP timestamps. When we are not using timestamps
 // then the receive-side RTT estimation logic uses as an RTT
@@ -6,6 +7,7 @@
 // sequence number N arrives. In this (not unusual) case below,
 // this takes 1 RTT; so we assert that the receive-side
 // RTT estimate is between 95 and 105ms.
+--tolerance_usecs=100000
 
 // Use a small receive buffer so that we advertise small windows, to keep the
 // test short.

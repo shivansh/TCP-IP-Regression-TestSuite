@@ -1,5 +1,7 @@
 // Test fast retransmit with 4 packets outstanding, receiver sending multiple SACKs.
 // In this variant the receiver supports SACK.
+// Borrowed from https://github.com/google/packetdrill
+--tolerance_usecs=100000
 
 // TODO~ Check if relevant sysctl exists for fast retransmit.
 

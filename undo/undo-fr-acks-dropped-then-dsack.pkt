@@ -1,7 +1,9 @@
+// Borrowed from https://github.com/google/packetdrill
 // Test fast recovery and undo: send 10 MSS, get 3 dupacks, do a
 // fast retransmit, get a DSACK for the retransmitted segment, and
 // undo the cwnd reduction.
 // Assumes initial cwnd is 10. Receiver supports SACK.
+--tolerance_usecs=100000
 
 // In this variant the original ACKs are lost, and all the sender gets is
 // a DSACK.
