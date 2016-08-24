@@ -14,19 +14,14 @@
 0.200 < . 1:1(0) ack 1 win 65535
 0.200 accept(3, ..., ...) = 4
 
-0.210 shutdown(4, SHUT_RD) = 0
-
-// Verify if read works (It should not work)
-0.210 read(4, ..., 1000) = 0
-
-0.250 shutdown(4, SHUT_WR) = 0
-0.250 > F. 1:1(0) ack 1
-0.250 < . 1:1(0) ack 2 win 65535
+0.210 shutdown(4, SHUT_WR) = 0
+0.210 > F. 1:1(0) ack 1
+0.210 < . 1:1(0) ack 2 win 65535
 
 // Verify if write works (It should not work)
-0.260 write(4, ..., 1000) = -1 EPIPE (Broken pipe)
+0.220 write(4, ..., 1000) = -1 EPIPE (Broken pipe)
 
-0.270 close(4) = 0
+0.230 close(4) = 0
 
-0.280 < F. 1:1(0) ack 2 win 65535
-0.280 > . 2:2(0) ack 2
+0.240 < F. 1:1(0) ack 2 win 65535
+0.240 > . 2:2(0) ack 2

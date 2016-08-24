@@ -18,7 +18,7 @@
 0.210 > F. 1:1(0) ack 1 <...>
 0.210 < .  1:1(0) ack 1 win 65535
 
-// Verify if read and write work (They should not work)
+// Verify if read and write work
 0.220 read(4, ..., 1000) = 0
 0.220 write(4, ..., 1000) = -1 EPIPE (Broken pipe)
 
