@@ -1,5 +1,6 @@
 // Test for handling reset from synchronized(established) state.
 // The connection should abort immediately and read()/write() should be disabled.
+--tolerance_usecs=100000
 
 // Create a listening TCP socket
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
