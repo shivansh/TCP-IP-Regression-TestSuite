@@ -27,8 +27,8 @@ The following tests were done in order to ensure proper functioning and behavior
 ## Scenarios covered
 
 |**Scenario**|**Number of tests**|**Result**|
-|------------|:-------------------:|:----------:|
-|ICMP|5|Passed|
+------------|:-------------------:|:----------:|
+|ICMP|1|Passed|
 |Blocking system calls|2|Passed|
 |Fast Retransmit|1|Passed|
 |Early Retransmit|1|[Failed](https://github.com/shivrai/TCP-IP-Regression-TestSuite/tree/master/early_retransmit#test-for-early-retranstmit)|
@@ -44,12 +44,12 @@ The following tests were done in order to ensure proper functioning and behavior
 |AIMD|1|Passed|
 |TIME-WAIT configuration|1|Passed|
 |Selective Acknowledgements|1|Passed|
-|Connection Close|3|Passed|
+|Connection Close|4|Passed|
 |Simultaneous Close|1|Passed|
-|RESET from synchronized and <br> non-synchronized states|6|Passed|
+|RESET from synchronized and <br> non-synchronized states|7|Passed|
 |MSS|8|6/8 Passed|
 |Receiver RTT|2|Passed|
-|TCP timestamps|-|Passed|
+|TCP timestamps|*|Passed|
 
 ## Future Plans and Work
 There is a huge scope for work yet to be done in this project, and I am not stopping anywhere in the near future. The final goal is to make this test suite exhaustive so that it can be easy for FreeBSD developers for checking the authenticity of the network stack, and that any misbehavior can be easily found out and rectified. The number of scenarios that can be added are innumerable, and the existing implemented set will be kept expanding and perfected. Some of the tasks which can be done are -
