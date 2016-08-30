@@ -16,13 +16,5 @@
 
 0.120 < R. 1:1(0) ack 1 win 65535
 
-// Our application writes 1000 bytes
-// This should produce a runtime error, since the connection has been reset.
-// 0.130 write(4, ..., 1000) = 1000
-0.130 close(4) = 0
-
-// Check whether we revert back to passive open state.
-0.140 < S  1:1(0) win 65535 <mss 1460,sackOK,nop,nop,nop,wscale 7>
-0.140 > S. 1:1(0) ack 2 <...>
-0.140 < .  2:2(0) ack 1 win 65535
-0.140 accept(3, ..., ...) = 4
+// Check if we transit to CLOSED state
++0 `sockstat -s -P tcp -p 8080 | grep 'packetdril' | awk '{print $8}' | grep 'CLOSED'`
