@@ -19,10 +19,53 @@ _packetdrill_ supports two modes of testing - local and remote.  A **TUN** virtu
 Local testing is relatively easier to use because there is less timing variation and the users need not coordinate access to multiple machines.
 One thing to keep in mind is that we treat the network stack as server and the running instance of _packetdrill_ is a client which issues packets and matches the response from the server against the hard-coded behavior.
 
+To avoid conflicts arising due to memory locking used in packetdrill, the following command must be run on a FreeBSD machine -
+```
+>> sudo sysctl -w vm.old_mlock = 1
+```
+Or following line should be placed in  /etc/sysctl.conf -
+```
+vm.old_mlock = 1
+```
+
 The following tests were done in order to ensure proper functioning and behavior of the test scripts were as desired -
- * Local mode testing
- * Remote mode testing
- * IPv4 and IPv6 protocol testing
+
+### Local mode testing
+
+Local mode is the default mode, and hence the user need not specify any special command line flags.
+```
+>> ./packetdrill -v <test-script.pkt>
+```
+Executing the above command will give the information about the inbound injected and outbound sniffed packets which can be studied and checked whether in accordance with the expected behaviour. The TUN virtual network device will be used as a source and sink for packets in this case.
+
+
+### Remote mode testing
+
+On the system under test (i.e the “client” machine), a command line option to enable remote mode (acting as a client) and a second option to specify the IP address of the remote server machine to which the client packetdrill instance will connect must be specified.
+```
+client>> ./packetdrill --wire_client --wire_server_ip=<server_ip> <test-script.pkt>
+```
+On the remote machine, using the same layer 2 broadcast domain (same hub/switch), a packetdrill process acting as a “wire server” daemon to inject and sniff packets remotely on the wire will be started.
+```
+server>> ./packetdrill --wire_server
+```
+The client instance will connect to the server (using TCP), and will send command line options and contents of the script file. Then, the two packetdrill instances will work in coherence to execute the script and test the client machine’s network stack.
+
+### IPv4 and IPv6 protocol testing
+
+packetdrill supports IPv4, IPv6 and dual-stack modes. The modes can be specified by the user with --ip_version command line flag. To get FreeBSD to allow using ipv4-mapped-ipv6 mode, the kernel must be notified with the following command -
+```
+>> sysctl -w net.inet6.ip6.v6only = 0
+```
+For testing using AF_INET6 sockets with IPv4 traffic -
+```
+>> ./packetdrill --ip_version=ipv4-mapped-ipv6 <test-script.pkt>
+```
+For testing using AF_INET6 sockets with IPv6 traffic -
+```
+>> ./packetdrill --ip_version=ipv6 --mtu=1520 <test-script.pkt>
+```
+Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to be set to 1520 to address the extra 20 bytes, rather than the standard size of 1500 bytes.
 
 ## Scenarios covered
 
@@ -52,7 +95,7 @@ The following tests were done in order to ensure proper functioning and behavior
 |TCP timestamps|*|Passed|
 
 ## Future Plans and Work
-There is a huge scope for work yet to be done in this project, and I am not stopping anywhere in the near future. The final goal is to make this test suite exhaustive so that it can be easy for FreeBSD developers for checking the authenticity of the network stack, and that any misbehavior can be easily found out and rectified. The number of scenarios that can be added are innumerable, and the existing implemented set will be kept expanding and perfected. Some of the tasks which can be done are -
+There is a huge scope for work yet to be done in this project, and I am not stopping anywhere in the near future. The final goal is to make this test suite exhaustive so that it can be easy for FreeBSD developers for checking the authenticity of the network stack, and that any misbehavior can be easily found out and rectified. The number of scenarios that can be added are innumerable, and the existing implemented set will be kept expanding and perfected. <br>Some of the tasks which can be listed as of now are -
  * Once we are successful in adding support in **tcp_info()** for checking window size, scenarios such as sliding window protocol, zero window handling and zero window probing can be successfully tested.
  * Adding support for urgent pointer in _packetdrill_.
  * _packetdrill_ currently supports testing only a single connection at a time. An attempt will be made to patch it to support multiple concurrent connections.
