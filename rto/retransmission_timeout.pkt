@@ -15,7 +15,7 @@
 0.100 accept(3, ..., ...) = 4
 
 // The default value of rto is 3 seconds.
-0.110 %{ assert tcpi_rto == 3000000  }%
+0.110 %{ assert tcpi_rto == 3000000 }%
 
 // We write 5 data segments
 0.110 write(4, ..., 10000) = 10000
