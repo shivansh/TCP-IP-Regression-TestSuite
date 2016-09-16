@@ -23,7 +23,7 @@ To avoid conflicts arising due to memory locking used in packetdrill, the follow
 ```
 >> sudo sysctl -w vm.old_mlock = 1
 ```
-Or following line should be placed in  /etc/sysctl.conf -
+Or following line should be placed in /etc/sysctl.conf -
 ```
 vm.old_mlock = 1
 ```
@@ -94,6 +94,9 @@ Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to
 |Receiver RTT|2|Passed|
 |TCP timestamps|*|Passed|
 
+## Possible Scenarios
+* Test for half-open connection (last ack getting lost).
+
 ## Future Plans and Work
 There is a huge scope for work yet to be done in this project, and I am not stopping anywhere in the near future. The final goal is to make this test suite exhaustive so that it can be easy for FreeBSD developers for checking the authenticity of the network stack, and that any misbehavior can be easily found out and rectified. The number of scenarios that can be added are innumerable, and the existing implemented set will be kept expanding and perfected. <br>Some of the tasks which can be listed as of now are -
  * Once we are successful in adding support in **tcp_info()** for checking window size, scenarios such as sliding window protocol, zero window handling and zero window probing can be successfully tested.
@@ -104,6 +107,6 @@ There is a huge scope for work yet to be done in this project, and I am not stop
 **Keep in touch with the latest updates in the project via the [FreeBSD-wiki](https://wiki.freebsd.org/SummerOfCode2016/TCP-IP-RegressionTestSuite/).**
 
 ## Acknowledgements
-I cannot thank my mentor Hiren Panchasara enough for all the help and support which he has given in the entire duration of the project. Working in his guidance was full of fun and challenging. I would be grateful enough to receive his guidance in the future too while I continue to work on this project. <br>
-I also thank Michael Tuexen for all his help and guidance during the project. <br>
+I cannot thank my mentor **Hiren Panchasara** enough for all the help and support which he has given in the entire duration of the project. Working in his guidance was full of fun and challenging. I would be grateful enough to receive his guidance in the future too while I continue to work on this project. <br>
+I also thank **Michael Tuexen** for all his help and guidance during the project. <br>
 I would also like to thank the FreeBSD community for accepting this project, which gave me a chance to gain a lot of knowledge about the community and open source in general.
