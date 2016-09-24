@@ -27,4 +27,4 @@
 // 0.110 < .  2:2(0) ack 2 win 65535
 
 // We retransmit the FIN after timeout.
-// Although packetdrill closes the connection just after line #19.
+3.110 > F. 1:1(0) ack 2 <...>
