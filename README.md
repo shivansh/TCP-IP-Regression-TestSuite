@@ -87,7 +87,7 @@ Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to
 |AIMD|1|Passed|
 |TIME-WAIT configuration|1|Passed|
 |Selective Acknowledgements|1|Passed|
-|Connection Close|4|Passed|
+|Connection Close|5|Passed|
 |Simultaneous Close|1|Passed|
 |RESET from synchronized and <br> non-synchronized states|7|Passed|
 |MSS|8|6/8 Passed|
@@ -95,7 +95,7 @@ Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to
 |TCP timestamps|*|Passed|
 
 ## Possible Scenarios
-* Test for half-open connection (last ack getting lost).
+* ~~Test for half-open connection (last ack getting lost).~~ **Update -** [close-last-ack-lost](./close/close-last-ack-lost.pkt)
 
 ## Future Plans and Work
 There is a huge scope for work yet to be done in this project, and I am not stopping anywhere in the near future. The final goal is to make this test suite exhaustive so that it can be easy for FreeBSD developers for checking the authenticity of the network stack, and that any misbehavior can be easily found out and rectified. The number of scenarios that can be added are innumerable, and the existing implemented set will be kept expanding and perfected. <br>Some of the tasks which can be listed as of now are -

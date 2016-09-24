@@ -3,7 +3,7 @@
 ## Status
 |                      Name                        | Result (FreeBSD)|
 |:------------------------------------------------:|:---------------:|
-[close-last-ack-lost](close-last-ack-lost.pkt)     |
+[close-last-ack-lost](close-last-ack-lost.pkt)     | Passed
 [close-read-data-fin](close-read-data-fin.pkt)     | Passed
 [close-write-data-ack](close-write-data-ack.pkt)   | Passed
 [close-unread-data-ack](close-unread-data-ack.pkt) | Passed
