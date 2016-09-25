@@ -1,6 +1,6 @@
 #!/bin/sh
 
-packetdrill=/home/zeebu/source-codes/regression-testing/regression-tester-google/gtests/net/packetdrill/packetdrill
+packetdrill=/usr/home/zeebsd/packetdrill/gtests/net/packetdrill/packetdrill
 
 set blocking/blocking-accept \
   blocking/blocking-read \
