@@ -59,27 +59,27 @@ for test
 do
   printf "%-60.60s " $test
   `sleep $delay`
-  #if [ -f ${test}.pkt ]
-  #then
-  $packetdrill ${test}.pkt > /dev/null 2>&1
-  result="`echo $?`"
-  found=1
-  if [ $found = 1 ]
+  if [ -e ${test}.pkt ]
   then
-    if [ $result = 1 ]
+    $packetdrill ${test}.pkt > /dev/null 2>&1
+    result="`echo $?`"
+    found=1
+    if [ $found = 1 ]
     then
-      printf "FAILED\n"
-      failed=`expr $failed + 1`
-    else
-      printf "PASSED\n"
-      passed=`expr $passed + 1`
+      if [ $result = 1 ]
+      then
+        printf "FAILED\n"
+        failed=`expr $failed + 1`
+      else
+        printf "PASSED\n"
+        passed=`expr $passed + 1`
+      fi
+      run=`expr $run + 1`
     fi
-    run=`expr $run + 1`
+  else
+    printf "SKIPPED\n"
+    skipped=`expr $skipped + 1`
   fi
-  #else
-  #printf "SKIPPED\n"
-  #skipped=`expr $skipped + 1`
-  #fi
 done
 
 printf "\nSummary\n"
