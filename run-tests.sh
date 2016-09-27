@@ -1,50 +1,50 @@
 #!/bin/sh
 
-packetdrill=/usr/home/zeebu/source-codes/regression-testing/regression-tester-google/gtests/net/packetdrill
+packetdrill=/home/zeebu/source-codes/regression-testing/regression-tester-google/gtests/net/packetdrill/packetdrill
 
 set blocking/blocking-accept \
-    blocking/blocking-read.pkt \
-    close/close-last-ack-lost.pkt \
-    close/close-read-data-fin.pkt \
-    close/close-unread-data-rst.pkt \
-    close/close-write-data-rst.pkt \
-    close/simultaneous-close.pkt \
-    connect/http-get-nonblocking-ts.pkt \
-    early_retransmit/early-retransmit.pkt \
-    fast_recovery/fast-recovery.pkt \
-    fast_retransmit/fr-4pkt-sack-bsd.pkt \
-    ICMP/icmp-all-types.pkt \
-    initial_window/iw10-base-case.pkt \
-    initial_window/iw10-short-response.pkt \
-    init_rto/init_rto_passive_open.pkt \
-    listen/listen-incoming-ack.pkt \
-    listen/listen-incoming-no-tcp-flags.pkt \
-    listen/listen-incoming-rst.pkt \
-    listen/listen-incoming-syn-ack.pkt \
-    listen/listen-incoming-syn-rst.pkt \
-    mss/mss-getsockopt-tcp_maxseg-client-ts.pkt \
-    mss/mss-getsockopt-tcp_maxseg-client.pkt \
-    mss/mss-getsockopt-tcp_maxseg-server-advmss-ipv4.pkt \
-    mss/mss-getsockopt-tcp_maxseg-server-advmss-ipv4.pkt \
-    mss/mss-getsockopt-tcp_maxseg-server-advmss-ts-ipv4.pkt \
-    mss/mss-setsockopt-tcp_maxseg-client.pkt \
-    mss/mss-setsockopt-tcp_maxseg-server.pkt \
-    pmtu_discovery/pmtu-10pkt.pkt \
-    receiver_rtt/rcv-rtt-with-timestamps-new.pkt \
-    receiver_rtt/rcv-rtt-without-timestamps-new.pkt \
-    reset/rst-non-synchronized.pkt \
-    reset/rst-syn-sent.pkt \
-    reset/rst-sync-est-fin-wait-1.pkt \
-    reset/rst-sync-est-fin-wait-2.pkt \
-    reset/rst-sync-est-time-wait.pkt \
-    reset/rst_sync_close_wait.pkt \
-    rto/retransmission_timeout.pkt \
-    shutdown/shutdown-rd.pkt \
-    shutdown/shutdown-rdwr.pkt \
-    shutdown/shutdown-wr.pkt \
-    slow_start/slow-start.pkt \
-    time_wait/time-wait.pkt \
-    undo/undo-fr-acks-dropped-then-dsack.pkt
+  blocking/blocking-read \
+  close/close-last-ack-lost \
+  close/close-read-data-fin \
+  close/close-unread-data-rst \
+  close/close-write-data-rst \
+  close/simultaneous-close \
+  connect/http-get-nonblocking-ts \
+  early_retransmit/early-retransmit \
+  fast_recovery/fast-recovery \
+  fast_retransmit/fr-4pkt-sack-bsd \
+  ICMP/icmp-all-types \
+  initial_window/iw10-base-case \
+  initial_window/iw10-short-response \
+  init_rto/init_rto_passive_open \
+  listen/listen-incoming-ack \
+  listen/listen-incoming-no-tcp-flags \
+  listen/listen-incoming-rst \
+  listen/listen-incoming-syn-ack \
+  listen/listen-incoming-syn-rst \
+  mss/mss-getsockopt-tcp_maxseg-client-ts \
+  mss/mss-getsockopt-tcp_maxseg-client \
+  mss/mss-getsockopt-tcp_maxseg-server-advmss-ipv4 \
+  mss/mss-getsockopt-tcp_maxseg-server-advmss-ipv4 \
+  mss/mss-getsockopt-tcp_maxseg-server-advmss-ts-ipv4 \
+  mss/mss-setsockopt-tcp_maxseg-client \
+  mss/mss-setsockopt-tcp_maxseg-server \
+  pmtu_discovery/pmtu-10pkt \
+  receiver_rtt/rcv-rtt-with-timestamps-new \
+  receiver_rtt/rcv-rtt-without-timestamps-new \
+  reset/rst-non-synchronized \
+  reset/rst-syn-sent \
+  reset/rst-sync-est-fin-wait-1 \
+  reset/rst-sync-est-fin-wait-2 \
+  reset/rst-sync-est-time-wait \
+  reset/rst_sync_close_wait \
+  rto/retransmission_timeout \
+  shutdown/shutdown-rd \
+  shutdown/shutdown-rdwr \
+  shutdown/shutdown-wr \
+  slow_start/slow-start \
+  time_wait/time-wait \
+  undo/undo-fr-acks-dropped-then-dsack
 
 delay=0.2
 passed=0
@@ -59,27 +59,27 @@ for test
 do
   printf "%-60.60s " $test
   `sleep $delay`
-  if [ -f ${test}.pkt ]
+  #if [ -f ${test}.pkt ]
+  #then
+  $packetdrill ${test}.pkt 2> /dev/null
+  result="`echo $?`"
+  found=1
+  if [ $found = 1 ]
   then
-    $packetdrill ${test}.pkt 2> /dev/null
-    result="`echo $?`"
-    found=1
-    if [ $found = 1 ]
+    if [ $result = 1 ]
     then
-      if [ $result = 1 ]
-      then
-        printf "FAILED\n"
-        failed=`expr $failed + 1`
-      else
-        printf "PASSED\n"
-        passed=`expr $passed + 1`
-      fi
-      run=`expr $run + 1`
+      printf "FAILED\n"
+      failed=`expr $failed + 1`
+    else
+      printf "PASSED\n"
+      passed=`expr $passed + 1`
     fi
-  else
-    printf "SKIPPED\n"
-    skipped=`expr $skipped + 1`
+    run=`expr $run + 1`
   fi
+  #else
+  #printf "SKIPPED\n"
+  #skipped=`expr $skipped + 1`
+  #fi
 done
 
 printf "\nSummary\n"
