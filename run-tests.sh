@@ -61,7 +61,7 @@ do
   `sleep $delay`
   #if [ -f ${test}.pkt ]
   #then
-  $packetdrill ${test}.pkt 2> /dev/null
+  $packetdrill ${test}.pkt > /dev/null 2>&1
   result="`echo $?`"
   found=1
   if [ $found = 1 ]
