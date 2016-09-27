@@ -38,6 +38,12 @@ Local mode is the default mode, and hence the user need not specify any special 
 ```
 Executing the above command will give the information about the inbound injected and outbound sniffed packets which can be studied and checked whether in accordance with the expected behaviour. The TUN virtual network device will be used as a source and sink for packets in this case.
 
+#### Using the script to automate
+The script [run-tests.sh](https://github.com/shivrai/TCP-IP-Regression-TestSuite/blob/master/run-tests.sh) can be used to automate the tests. The value of the `packetdrill` variable should be replaced with the location of the **packetdrill** binary on your machine.
+The following command should be used for executing all the tests -
+```
+sudo sh run-tests.sh
+```
 
 ### Remote mode testing
 
@@ -98,7 +104,7 @@ Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to
 * ~~Test for half-open connection (last ack getting lost).~~ **Update -** [close-last-ack-lost](./close/close-last-ack-lost.pkt)
 
 ## Future Plans and Work
-There is a huge scope for work yet to be done in this project, and I am not stopping anywhere in the near future. The final goal is to make this test suite exhaustive so that it can be easy for FreeBSD developers for checking the authenticity of the network stack, and that any misbehavior can be easily found out and rectified. The number of scenarios that can be added are innumerable, and the existing implemented set will be kept expanding and perfected. <br>Some of the tasks which can be listed as of now are -
+There is a huge scope for work yet to be done in this project, and I am not stopping anywhere in the near future. The final goal is to make this test suite exhaustive so that it can be easy for FreeBSD developers for checking the authenticity of the network stack in a rigorous manner, and that occurrence of any misbehavior can be found out and rectified easily. The number of scenarios that can be added are innumerable, and the existing implemented set will be kept expanding and perfected. <br>Some of the tasks which can be listed as of now are -
  * Once we are successful in adding support in **tcp_info()** for checking window size, scenarios such as sliding window protocol, zero window handling and zero window probing can be successfully tested.
  * Adding support for urgent pointer in _packetdrill_.
  * _packetdrill_ currently supports testing only a single connection at a time. An attempt will be made to patch it to support multiple concurrent connections.
@@ -107,6 +113,6 @@ There is a huge scope for work yet to be done in this project, and I am not stop
 **Keep in touch with the latest updates in the project via the [FreeBSD-wiki](https://wiki.freebsd.org/SummerOfCode2016/TCP-IP-RegressionTestSuite/).**
 
 ## Acknowledgements
-I cannot thank my mentor **Hiren Panchasara** enough for all the help and support which he has given in the entire duration of the project. Working in his guidance was full of fun and challenging. I would be grateful enough to receive his guidance in the future too while I continue to work on this project. <br>
+I cannot thank my mentor **Hiren Panchasara** enough for all the help and support which he has given in the entire duration of the project. Working in his guidance was full of fun and challenging. I would be extremely grateful to receive his guidance in the future too while I continue to work on this project. <br>
 I also thank **Michael Tuexen** for all his help and guidance during the project. <br>
 I would also like to thank the FreeBSD community for accepting this project, which gave me a chance to gain a lot of knowledge about the community and open source in general.
