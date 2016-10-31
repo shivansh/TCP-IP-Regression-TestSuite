@@ -13,12 +13,11 @@
 0.100 < .  1:1(0) ack 1 win 65535
 0.100 accept(3, ..., ...) = 4
 
-
-// We simultaneously close the connection
+// We close the connection
 0.150 close(4) = 0
 0.150 > F. 1:1(0) ack 1 <...>
 
-// Client closes the connection
+// Client closes the connection simultaneously
 0.150 < F. 1:1(0) ack 2 win 65535
 
 0.150 > .  2:2(0) ack 2 <...>
