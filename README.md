@@ -13,6 +13,19 @@ The existing Linux test suite implemented within _packetdrill_ will provide a ba
 
 While valuable for measuring overall performance, TCP regression testing with _netperf_, application load tests, or production workloads can fail to reveal significant functional bugs in congestion control, loss recovery, flow control, security, DoS hardening and protocol state machines. Such approaches suffer from noise due to variations in site/network conditions or content, and a lack of precision and isolation, thus bugs in these areas can go unnoticed. Since _netperf_ is supposed to be more for benchmarking purposes and what we are trying to do is measure correctness, _packetdrill_, which was built with the same mindset, seemed an apt choice for this project.
 
+## Installation
+The testsuite is available as a [freebsd port](https://www.freshports.org/net/tcptestsuite/) along with [tuexen/tcp-testsuite](https://github.com/tuexen/tcp-testsuite).
+* If you already have packetdrill installed and configured - <br>
+ ```
+ pkg install tcptestsuite
+ ```
+
+* For installing the entire suite with packetdrill - <br>
+ ```
+ pkg install packetdrill
+ ```
+ Now proceed with the [steps for configuring packetdrill](https://github.com/google/packetdrill/blob/master/gtests/net/packetdrill/README).
+
 ## Test Plan
 
 _packetdrill_ supports two modes of testing - local and remote.  A **TUN** virtual network device is used in the local testing and a physical **NIC** is used for the remote testing.
