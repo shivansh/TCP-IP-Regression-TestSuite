@@ -20,3 +20,5 @@ script packet:  0.360000 R 1:1(0)
 actual packet:  0.367084 . 1:1(0) ack 1001 win 1008
 ```
 **FIXED** as of [this commit](https://github.com/shivrai/TCP-IP-Regression-TestSuite/commit/dbff9865f8fa31b1db181b7a1e3533780185628a).
+
+* **Note:** After calling `shutdown(SHUT_RD)`, FreeBSD still accepts data (and ACKs) **but discards them**.
