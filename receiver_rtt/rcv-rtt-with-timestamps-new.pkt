@@ -5,6 +5,11 @@
 // Use a small receive buffer so that we advertise small windows, to keep the
 // test short.
 /*`sysctl -q net.ipv4.tcp_rmem="4096 10000 2097152"`*/
+0.000 `
+sysctl -q net.inet.tcp.recvbuf_auto="1"
+sysctl -q net.inet.tcp.recvbuf_inc="16384"
+sysctl -q net.inet.tcp.recvbuf_max="2097152"
+`
 
 // Create a socket.
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
@@ -55,3 +60,9 @@
 /*0.800 %{ assert tcpi_rcv_rtt >= 95*1000 and tcpi_rcv_rtt <= 105*1000  }%*/
 
 /*0.800 `sysctl -q net.ipv4.tcp_rmem="4096 87380 3732736"`*/
+
+0.800 `
+sysctl -q net.inet.tcp.recvbuf_auto="1"
+sysctl -q net.inet.tcp.recvbuf_inc="16384"
+sysctl -q net.inet.tcp.recvbuf_max="2097152"
+`
