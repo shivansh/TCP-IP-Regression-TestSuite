@@ -1,0 +1,43 @@
+// Test for verifying slow read attack.
+
+// Create a listening TCP socket
+0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
+0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+0.000 bind(3, ..., ...) = 0
+0.000 listen(3, 1) = 0
+
+// Establish a connection
+0.100 < S 0:0(0) win 28 <mss 1460,sackOK,nop,nop,nop,wscale 0>
+0.100 > S. 0:0(0) ack 1 <...>
+0.200 < . 1:1(0) ack 1 win 28 <mss 1460,sackOK,nop,nop,nop,wscale 0>
+0.200 accept(3, ..., ...) = 4
+
+0.200 < P. 1:236(235) ack 1 win 28
+0.250 > . 1:1(0) ack 236 <...>
+
+0.250 write(4, ..., 1448) = 1448
+0.250 > . 1:29(28) ack 236 <...>
+
+// Client responds with an advertized window size of 0.
+0.250 < . 236:236(0) ack 29 win 0
+
+// We keep polling the client for available space
+// at progressive intervals of ~ 5 seconds.
+5.250 > . 29:30(1) ack 236 <...>
+5.250 < . 236:236(0) ack 29 win 0
+
+10.500 > . 29:30(1) ack 236 <...>
+10.500 < . 236:236(0) ack 29 win 0
+
+15.750 > . 29:30(1) ack 236 <...>
+
+// This time the client responds with a
+// larger advertized window size.
+15.750 < . 236:236(0) ack 29 win 28
+
+// We send a larger segment in accordance with the
+// client's latest advertized window size.
+15.750 > . 29:57(28) ack 236 <...>
+
+// Client ACKs the segment.
+15.750 < . 236:236(0) ack 57 win 28
