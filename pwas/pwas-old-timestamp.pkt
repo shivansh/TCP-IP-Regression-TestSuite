@@ -1,5 +1,6 @@
 // Test for checking protection against wrapped
-// sequence numbers (PAWS)
+// sequence numbers (PAWS).
+// Client sends a packet with an old timestamp value.
 
 // Create a socket.
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
