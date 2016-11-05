@@ -1,10 +1,10 @@
-# Test for protection against wrapped sequence numbers (PWAS)
+# Test for protection against wrapped sequence numbers (PAWS)
 
 ## Status
 |                  Name                      |  Result (FreeBSD)  |
 |:------------------------------------------:|:------------------:|
-[pwas-old-seq](pwas-old-seq.pkt)             | Passed
-[pwas-old-timestamp](pwas-old-timestamp.pkt) | Passed
+[paws-old-seq](paws-old-seq.pkt)             | Passed
+[paws-old-timestamp](paws-old-timestamp.pkt) | Passed
 
 ## References
 * http://www.freesoft.org/CIE/RFC/1323/14.htm
