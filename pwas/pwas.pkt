@@ -1,0 +1,30 @@
+// Test for checking protection against wrapped
+// sequence numbers (PAWS)
+
+// Create a socket.
+0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
+0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+0.000 bind(3, ..., ...) = 0
+0.000 listen(3, 1) = 0
+
+// Establish a connection.
+0.100 < S 0:0(0) win 20000 <mss 1000,sackOK,TS val 100 ecr 0>
+0.100 > S. 0:0(0) ack 1 <mss 1000,sackOK,TS val 100 ecr 100>
+0.200 < . 1:1(0) ack 1 win 20000 <nop,nop,TS val 200 ecr 100>
+0.200 accept(3, ..., ...) = 4
+
+0.200 < . 1:1001(1000) ack 1 win 20000 <nop,nop,TS val 200 ecr 100>
+0.300 > . 1:1(0) ack 1001 <nop,nop,TS val 300 ecr 200>
+
+// Client sends a packet with an old timestamp value.
+0.300 < . 1001:2001(1000) ack 1 win 20000 <nop,nop,TS val 100 ecr 300>
+
+// We drop the packet with the old timestamp and
+// send an ACK for the appropriate packet.
+0.400 > . 1:1(0) ack 1001 <nop,nop,TS val 400 ecr 200>
+
+// Client sends the corrected segment.
+0.400 < . 1001:2001(1000) ack 1 win 2000 <nop,nop,TS val 400 ecr 400>
+
+// We ACK the corrected segment and update the ecr value.
+0.500 > . 1:1(0) ack 2001 <nop,nop,TS val 500 ecr 400>
