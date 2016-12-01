@@ -1,2 +1,5 @@
 # The tests are incomplete
 havercvdfin/
+
+# Ignore the log files
+error.log
