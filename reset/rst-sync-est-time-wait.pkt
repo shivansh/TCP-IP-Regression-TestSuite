@@ -33,5 +33,5 @@
 0.130 < R 1:1(0) win 65535
 
 // Our application writes 1000 bytes
-// This should produce a runtime error, since the connection has been reset.
-0.130 write(4, ..., 1000) = 1000
+// This should produce a runtime error, since the connection has been closed.
+// 0.130 write(4, ..., 1000) = -1
