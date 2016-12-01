@@ -23,14 +23,14 @@
 
 // Receive the HTTP response and the server's FIN.
 0.300 < P. 1:786(785) ack 58 win 92 <nop,nop,TS val 800 ecr 200>
-0.300 > . 58:58(0) ack 786 <nop,nop,TS val 300 ecr 800>
-0.300 < F. 786:786(0) ack 58 win 92 <nop,nop,TS val 800 ecr 200>
-0.300 read(3, ..., 1024) = 785
-0.300 read(3, ..., 1024) = 0
+0.400 > . 58:58(0) ack 786 <nop,nop,TS val 300 ecr 800>
+0.400 < F. 786:786(0) ack 58 win 92 <nop,nop,TS val 800 ecr 200>
+0.400 read(3, ..., 1024) = 785
+0.400 read(3, ..., 1024) = 0
 // Delayed ACK.
-0.340 > . 58:58(0) ack 787 <nop,nop,TS val 300 ecr 800>
+0.440 > . 58:58(0) ack 787 <nop,nop,TS val 300 ecr 800>
 
 // Close the connection.
-0.350 close(3) = 0
-0.350 > F. 58:58(0) ack 787 <nop,nop,TS val 300 ecr 800>
-0.450 < . 787:787(0) ack 59 win 92 <nop,nop,TS val 900 ecr 300>
+0.450 close(3) = 0
+0.450 > F. 58:58(0) ack 787 <nop,nop,TS val 300 ecr 800>
+0.550 < . 787:787(0) ack 59 win 92 <nop,nop,TS val 900 ecr 300>
