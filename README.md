@@ -57,6 +57,7 @@ The following command should be used for executing all the tests -
 ```
 sudo sh run-tests.sh
 ```
+**Note** `sudo` is required only for running the packetdrill binary.
 
 ### Remote mode testing
 
@@ -112,6 +113,8 @@ Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to
 |MSS|8|6/8 Passed|
 |Receiver RTT|2|Passed|
 |TCP timestamps|*|Passed|
+|Zero window probing|2|Passed|
+|Zero window handling|1|Passed|
 
 ## Possible Scenarios
 * ~~Test for half-open connection (last ack getting lost).~~ **Update -** [close-last-ack-lost](./close/close-last-ack-lost.pkt)

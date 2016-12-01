@@ -26,5 +26,5 @@
 // Client sends the correct segment.
 0.400 < . 1001:2001(1000) ack 1 win 20000 <nop,nop,TS val 400 ecr 400>
 
-// We update the ecr value send an ACK.
+// We update the ecr value and send an ACK.
 0.500 > . 1:1(0) ack 2001 <nop,nop,TS val 500 ecr 400>

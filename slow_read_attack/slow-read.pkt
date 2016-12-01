@@ -21,8 +21,8 @@
 // Client responds with an advertized window size of 0.
 0.250 < . 236:236(0) ack 29 win 0
 
-// We keep polling the client for available space
-// at progressive intervals of ~ 5 seconds.
+// We send zero window probes to the client for advertized
+// window size at progressive intervals of 5 seconds (approx).
 5.250 > . 29:30(1) ack 236 <...>
 5.250 < . 236:236(0) ack 29 win 0
 
