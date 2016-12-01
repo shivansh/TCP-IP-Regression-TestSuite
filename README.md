@@ -51,14 +51,6 @@ Local mode is the default mode, and hence the user need not specify any special 
 ```
 Executing the above command will give the information about the inbound injected and outbound sniffed packets which can be studied and checked whether in accordance with the expected behaviour. The TUN virtual network device will be used as a source and sink for packets in this case.
 
-#### Using the script to automate
-The script [run-tests.sh](https://github.com/shivrai/TCP-IP-Regression-TestSuite/blob/master/run-tests.sh) can be used to automate the tests. The value of the `packetdrill` variable should be replaced with the location of the **packetdrill** binary on your machine.
-The following command should be used for executing all the tests -
-```
-sudo sh run-tests.sh
-```
-**Note** `sudo` is required only for running the packetdrill binary.
-
 ### Remote mode testing
 
 On the system under test (i.e the “client” machine), a command line option to enable remote mode (acting as a client) and a second option to specify the IP address of the remote server machine to which the client packetdrill instance will connect must be specified.
@@ -86,6 +78,15 @@ For testing using AF_INET6 sockets with IPv6 traffic -
 >> ./packetdrill --ip_version=ipv6 --mtu=1520 <test-script.pkt>
 ```
 Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to be set to 1520 to address the extra 20 bytes, rather than the standard size of 1500 bytes.
+
+### Using the script to automate
+The script [run-tests.sh](https://github.com/shivrai/TCP-IP-Regression-TestSuite/blob/master/run-tests.sh) can be used to automate the tests. The value of the `$packetdrill` variable should be set to the location of the **packetdrill** binary on your machine before running the script.
+The following command should be used for executing all the tests -
+```
+sudo sh run-tests.sh
+```
+**Note:** `sudo` is required only for running the packetdrill binary. <br><br>
+**Update:** Logging functionality is now added in the automation script. After a single run, all the errors are placed in `error.log` in a clean format for easy debugging.
 
 ## Scenarios covered
 

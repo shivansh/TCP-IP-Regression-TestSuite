@@ -18,4 +18,4 @@
 * **Note** If the client never updates it's advertized window, the server will keep sending the zero window probes indefinitely. The handling for this case is done by the application.
 
 ## References
-* https://tools.ietf.org/html/rfc6429#section-3
+* [RFC6429: TCP Sender Clarification for Persist Condition](https://tools.ietf.org/html/rfc6429#section-3)
