@@ -1,6 +1,6 @@
 // Borrowed from https://github.com/google/packetdrill
-// Test for checking if the read() system calls fails
-// after we close the connection.
+// Test for checking if RST is generated when we close()
+// without read()'ing client's data.
 --tolerance_usecs=100000
 
 0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
@@ -31,7 +31,9 @@
 
 0.460 > . 1001:1001(0) ack 1002
 
-// We close the connection with a delay, in case there
-// is still data left to send
-0.470 close(4) = 0
-0.480 read(4, ..., 1000) = 1000
+// We close the connection
+0.460 close(4) = 0
+
+// Since we have not read() client's data, a RST is generated
+// instead of a FIN
+0.470 > R. 1001:1001(0) ack 1002
