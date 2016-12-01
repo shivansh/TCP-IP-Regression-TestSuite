@@ -10,10 +10,9 @@ set blocking/blocking-accept \
   close/close-write-data-rst \
   close/simultaneous-close \
   connect/http-get-nonblocking-ts \
-  early_retransmit/early-retransmit \
   fast_recovery/fast-recovery \
   fast_retransmit/fr-4pkt-sack-bsd \
-  ICMP/icmp-all-types \
+  icmp/icmp-all-types \
   initial_window/iw10-base-case \
   initial_window/iw10-short-response \
   init_rto/init_rto_passive_open \
