@@ -68,7 +68,7 @@ do
   if [ -e ${test}.pkt ]
   then
     `rm -f temp.log`
-    `$packetdrill -v ${test}.pkt >> temp.log 2>&1`
+    `$packetdrill -v --tolerance_usecs=1000000 ${test}.pkt >> temp.log 2>&1`
     result="`echo $?`"
     found=1
     if [ $found = 1 ]
