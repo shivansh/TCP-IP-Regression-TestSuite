@@ -4,7 +4,7 @@
 | Name                                             | Result (FreeBSD) |
 |:------------------------------------------------:|:----------------:|
 [rst-non-sync](rst-non-synchronized.pkt) | Passed
-[rst-sync-est](rst-synchronized-established.pkt) | Failed
+[rst-sync-est](rst-synchronized-established.pkt) | Passed
 [rst-sync-est-fin-wait-1](rst-sync-est-fin-wait-1.pkt) | Passed
 [rst-sync-est-fin-wait-2](rst-sync-est-fin-wait-2.pkt) | Passed
 [rst-sync-close-wait](rst_sync_close_wait.pkt) | Passed
