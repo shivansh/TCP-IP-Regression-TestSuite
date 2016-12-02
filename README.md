@@ -86,7 +86,11 @@ The following command should be used for executing all the tests -
 sudo sh run-tests.sh
 ```
 **Note:** `sudo` is required only for running the packetdrill binary. <br><br>
-**Update:** Logging functionality is now added in the automation script. After a single run, all the errors are placed in `error.log` in a clean format for easy debugging.
+**Update:** Logging functionality is now added in the automation script. After a single run, all the errors are placed in `error.log` in a clean format for easy debugging. <br>
+The automation scripts reads the list of scripts from the local file `test_scripts`. This file needs to be timely updated -
+```
+sh update-test-list.sh
+```
 
 ## Scenarios covered
 
