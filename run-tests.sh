@@ -1,9 +1,10 @@
 #!/bin/sh
 
 # This variable has to be updated to point to the location of packetdrill binary.
-packetdrill=
+packetdrill=/usr/home/zeebsd/packetdrill/gtests/net/packetdrill/packetdrill
+directory=$1
 
-file=/usr/home/zeebsd/TCP-IP-Regression-TestSuite/tests_list
+file=tests_list
 
 if [ -z "$packetdrill" ]
 then
@@ -14,6 +15,12 @@ fi
 if [ ! -e $file ]
 then
   `find . -type f -iname '*.pkt' | cut -f 2 -d '.' > tests_list`
+fi
+
+if [ ! -z "$directory" ]
+then
+  `find ./$directory/ -type f -iname '*.pkt' | cut -f 2 -d '.' > temp_list`
+  file=temp_list
 fi
 
 delay=0.1
@@ -62,6 +69,7 @@ do
   fi
 done< "$file"
 `rm -f temp.log`
+`rm -f temp_list`
 
 printf "\nSummary\n"
 printf "===========================\n"
@@ -70,7 +78,10 @@ printf "Number of tests run: %6d\n" $run
 printf "Number of tests passed: %3d\n" $passed
 printf "Number of tests failed: %3d\n" $failed
 printf "Number of tests skipped: %2d\n" $skipped
-printf "\nView the log file (error.log) for details\n"
+if [ $failed -ne 0 ]
+then
+  printf "\nView the log file (error.log) for details\n"
+fi
 
 # printf "\nList of failed tests\n"
 # printf "===========================\n"
