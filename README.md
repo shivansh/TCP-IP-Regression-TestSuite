@@ -7,7 +7,7 @@ Regression testing is one of the most critical elements of the test artifacts an
 ## Project description
 
 _packetdrill_ currently supports testing multiple scenarios for TCP/IP protocol suite within Linux. This project aims to design and implement a wire level regression test suite for FreeBSD using packetdrill. The test suite will exercise various states in the TCP/IP protocol suite, with both **IPv4** and **IPv6** support. Besides Linux, the _packetdrill_ tool works on {**Free**, **Net**, **Open**} **BSD**.
-The existing Linux test suite implemented within _packetdrill_ will provide a basis for understanding, and implementation of the FreeBSD test suite. For the current scope of the project, only a subset of the existing test scenarios will be implemented.
+The existing Linux test suite implemented within _packetdrill_ will provide a basis for understanding, and implementation of the FreeBSD test suite. ~~For the current scope of the project, only a subset of the existing test scenarios will be implemented.~~ **Update:** All the scenarios have been implemented along with additional ones.
 
 ## Why Packetdrill?
 
@@ -23,6 +23,7 @@ The testsuite is available as a [freebsd port](https://www.freshports.org/net/tc
 * For installing the entire suite with packetdrill - <br>
  ```
  pkg install packetdrill
+ pkg install tcptestsuite
  ```
  Now proceed with the [steps for configuring packetdrill](https://github.com/google/packetdrill/blob/master/gtests/net/packetdrill/README).
 
