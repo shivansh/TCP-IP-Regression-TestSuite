@@ -23,12 +23,11 @@ then
   file=temp_list
 fi
 
-delay=0.1
-passed=0
-failed=0
+delay=0.2
 run=0
 skipped=0
-found=0
+passed=0
+failed=0
 
 `rm -f error.log`
 printf "\nScript Name                                             Result\n"
@@ -43,26 +42,22 @@ do
     `rm -f temp.log`
     `$packetdrill -v --tolerance_usecs=1000000 .${test}.pkt >> temp.log 2>&1`
     result="`echo $?`"
-    found=1
-    if [ $found = 1 ]
+    if [ $result = 1 ]
     then
-      if [ $result = 1 ]
-      then
-        `printf "Test Name: ${test}\.pkt\n" >> error.log`
-        `printf "\---------------------------------------------------------\n" >> error.log`
-        `cat temp.log >> error.log`
-        `printf "\n" >> error.log`
-        printf "FAILED\n"
-        printf "\--------------------------------------------------------------\n"
-        failed=`expr $failed + 1`
-        # set -- "$@" $test
-      else
-        printf "PASSED\n"
-        printf "\--------------------------------------------------------------\n"
-        passed=`expr $passed + 1`
-      fi
-      run=`expr $run + 1`
+      `printf "Test Name: ${test}\.pkt\n" >> error.log`
+      `printf "\---------------------------------------------------------\n" >> error.log`
+      `cat temp.log >> error.log`
+      `printf "\n" >> error.log`
+      printf "FAILED\n"
+      printf "\--------------------------------------------------------------\n"
+      failed=`expr $failed + 1`
+      # set -- "$@" $test
+    else
+      printf "PASSED\n"
+      printf "\--------------------------------------------------------------\n"
+      passed=`expr $passed + 1`
     fi
+    run=`expr $run + 1`
   else
     printf "SKIPPED\n"
     skipped=`expr $skipped + 1`
