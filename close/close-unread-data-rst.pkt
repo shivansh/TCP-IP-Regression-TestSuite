@@ -30,10 +30,12 @@
 0.450 < F. 1001:1001(0) ack 1001 win 65535
 
 0.460 > . 1001:1001(0) ack 1002
+// We are now in CLOSE_WAIT state
 
 // We close the connection
 0.460 close(4) = 0
 
-// Since we have not read() client's data, a RST is generated
-// instead of a FIN
+// Since we have not read() client's data, a RST is to be
+// generated [expected behavior] instead of a FIN [observed behavior].
+// Linux confirms to this behavior.
 0.470 > R. 1001:1001(0) ack 1002
