@@ -27,8 +27,9 @@ if [ -z $packetdrill ]; then
   exit 1
 fi
 
-if [ ! -e $file ]; then
-  sh update-test-list
+if [ ! -e $directory ]; then
+  echo "File not found!"
+  exit 1
 fi
 
 # Check if the argument is a ".pkt" file
@@ -38,8 +39,10 @@ fi
 
 # Check if the argument is a directory
 if [ ! -z $directory ] && [ $pkt_file_flag == 0 ]; then
-  sh update-test-list
+  sh update-test-list temp_list $directory
   file=temp_list
+else
+  sh update-test-list tests_list
 fi
 
 delay=0.2
@@ -86,11 +89,11 @@ if [ $pkt_file_flag == 1 ]; then
 else
   while IFS= read test
   do
-    printf "%-55.55s " .$test
+    printf "%-55.55s " $test
     sleep $delay
-    if [ -e .${test}.pkt ]; then
+    if [ -e ${test}.pkt ]; then
       rm -f temp.log
-      $packetdrill -v --tolerance_usecs=1000000 .${test}.pkt >> temp.log 2>&1
+      $packetdrill -v --tolerance_usecs=1000000 ${test}.pkt >> temp.log 2>&1
       result="`echo $?`"
       check_status
     else
@@ -99,6 +102,11 @@ else
     fi
   done< $file
   rm -f temp.log temp_list
+fi
+
+if [ $run == 0 ]; then
+  echo "Make sure that you have specified the correct .pkt file"
+  exit 1
 fi
 
 printf "\nSummary\n"

@@ -2,5 +2,15 @@
 # Script for updating local list of tests.
 # Please run this script timely, especially after adding new tests.
 
-rm -f tests_list
-find . -type f -iname '*.pkt' | cut -f 2 -d '.' > tests_list
+if [ -z $1 ] && [ -z $2 ]; then
+  echo "Usage ./update-test-list <test-file> <directory>"
+  exit 1
+
+else
+  rm -f $1
+  if [ -z $2 ]; then
+    find . -type f -iname '*.pkt' | cut -f 2 -d '.' | cut -c 2- > $1
+  else
+    find $2 -type f -iname '*.pkt' | cut -f 1 -d '.' > $1
+  fi
+fi
