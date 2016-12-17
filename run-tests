@@ -1,5 +1,5 @@
 #!/bin/sh
-#
+
 ##################################################
 # Automation script for running tests            #
 # A default tolerance value of 1 second is used. #
@@ -10,7 +10,7 @@ packetdrill=/usr/home/zeebsd/packetdrill/gtests/net/packetdrill/packetdrill
 directory="$1"
 extension=".pkt"
 
-file=tests_list      # contains the list of ".pkt" files in case the argument is empty or a directory
+file=tests_list   # contains the list of ".pkt" files in case the argument is empty or a directory
 pkt_file_flag=0   # tracks whether the argument is a ".pkt" file
 
 # Check if path to packetdrill binary is set
