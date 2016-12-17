@@ -98,30 +98,10 @@ sh update-test-list.sh
 
 |**Scenario**|**Number of tests**|**Result**|
 ------------|:-------------------:|:----------:|
-|ICMP|1|Passed|
-|Blocking system calls|2|Passed|
-|Fast Retransmit|1|Passed|
-|Early Retransmit|1|[Failed](https://github.com/shivrai/TCP-IP-Regression-TestSuite/tree/master/early_retransmit#test-for-early-retranstmit)|
-|Fast Recovery|1|Passed|
-|init_rto|1|Passed|
-|Initial window|1|Passed|
-|PMTU discovery|1|Passed|
-|Retransmission Timeout|2|Passed|
-|Socket Shutdown|3|Passed|
-|Undo|2|Passed|
-|Connect|1|Passed|
-|TCP options establishment|5|Passed|
-|AIMD|1|Passed|
-|TIME-WAIT configuration|1|Passed|
-|Selective Acknowledgements|1|Passed|
-|Connection Close|5|Passed|
-|Simultaneous Close|1|Passed|
-|RESET from synchronized and <br> non-synchronized states|7|Passed|
-|MSS|8|6/8 Passed|
-|Receiver RTT|2|Passed|
-|TCP timestamps|*|Passed|
-|Zero window probing|2|Passed|
-|Zero window handling|1|Passed|
+|ICMP|1|Passed
+|Socket API|13|Passed
+|TCP Mechanisms|20|Passed
+|TCP State Machine|15|Passed
 
 ## Possible Scenarios
 * ~~Test for half-open connection (last ack getting lost).~~ **Update -** [close-last-ack-lost](./close/close-last-ack-lost.pkt)

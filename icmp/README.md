@@ -1,4 +1,4 @@
-# Test for handling incoming ICMP packets
+# Test for handling incoming ICMP messages
 
 ## Status
 
