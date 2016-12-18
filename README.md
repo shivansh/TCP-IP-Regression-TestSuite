@@ -84,24 +84,20 @@ Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to
 The script [run-tests.sh](https://github.com/shivrai/TCP-IP-Regression-TestSuite/blob/master/run-tests.sh) can be used to automate the tests. The value of the `$packetdrill` variable should be set to the location of the **packetdrill** binary on your machine before running the script.
 The following command should be used for executing all the tests -
 ```
-sudo sh run-tests.sh <directory>
+sudo sh run-tests.sh <directory/file>
 ```
 You can specify the directory for which you want to run the tests. If no directory is specified, the current directory is taken into consideration by default. <br>
 **Note:** `sudo` is required only for running the packetdrill binary. <br><br>
 **Update:** Logging functionality is now added in the automation script. After a single run, all the errors are placed in `error.log` in a clean format for easy debugging. <br>
-The automation scripts reads the list of scripts from the local file `test_scripts`. This file needs to be timely updated -
-```
-sh update-test-list.sh
-```
 
 ## Scenarios covered
 
-|**Scenario**|**Number of tests**|**Result**|
-------------|:-------------------:|:----------:|
-|ICMP|1|Passed
-|Socket API|13|Passed
-|TCP Mechanisms|20|Passed
-|TCP State Machine|15|Passed
+|**Scenario**|**Number of tests**|**Result (FreeBSD)**|
+-------------|:-----------------:|------------------|
+|[ICMP](icmp)                    |1 |Passed
+|[Socket API](socket-api)        |17|Failed: [1](socket-api/close/close-unread-data-rst.pkt)
+|[TCP Mechanisms](tcp-mechanisms)|12|Failed: [1](tcp-mechanisms/early_retransmit/early-retransmit.pkt)
+|[TCP State Machine](tcp-fsm)    |17|Failed: [3](tcp-fsm/mss)
 
 ## Possible Scenarios
 * ~~Test for half-open connection (last ack getting lost).~~ **Update -** [close-last-ack-lost](./close/close-last-ack-lost.pkt)

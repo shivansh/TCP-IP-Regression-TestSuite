@@ -60,7 +60,7 @@ check_status() {
     cat temp.log >> error.log
     printf "\n" >> error.log
     echo -e "\e[0;31mFAILED\e[0m"
-    printf "\--------------------------------------------------------------\n"
+    printf "\---------------------------------------------------------------\n"
     failed=`expr $failed + 1`
   else
     echo -e "\e[1;32mPASSED\e[0m"

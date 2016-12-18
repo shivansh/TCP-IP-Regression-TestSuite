@@ -1,6 +1,5 @@
 #!/bin/sh
 # Script for updating local list of tests.
-# Please run this script timely, especially after adding new tests.
 
 if [ -z $1 ] && [ -z $2 ]; then
   echo "Usage ./update-test-list <test-file> <directory>"
