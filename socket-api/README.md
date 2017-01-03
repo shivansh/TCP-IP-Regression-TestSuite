@@ -1,11 +1,11 @@
 # Tests for socket API
 
 ## Status
-|**Scenario**|**Number of tests**|**Result**|
-------------|:-------------------:|:----------:|
-|Blocking system calls|2|Passed|
-|Connect|1|Passed|
-|init_rto|1|Passed|
-|Socket Shutdown|3|Passed|
-|Connection Close|5|Passed|
-|Simultaneous Close|1|Passed|
+|        **Scenario**         |**Number of tests**|**Result**|
+|-------------------------------------------|:---:|:--------:|
+|[close()](close/README.md)                 |  5  |  Passed  |
+|[Blocking system calls](blocking/README.md)|  2  |  Passed  |
+|[connect()](connect/README.md)             |  1  |  Passed  |
+|[init_rto](init_rto/README.md)             |  1  |  Passed  |
+|[listen](listen/README.md)                 |  5  |  Passed  |
+|[shutdown()](shutdown/README.md)           |  3  |  Passed  |
