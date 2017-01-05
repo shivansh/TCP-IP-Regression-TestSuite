@@ -95,8 +95,8 @@ You can specify the directory for which you want to run the tests. If no directo
 |**Scenario**|**Number of tests**|**Result (FreeBSD)**|
 -------------|:-----------------:|------------------|
 |[ICMP](icmp)                    |1 |Passed
-|[Socket API](socket-api)        |17|Failed: [1](socket-api/close/close-unread-data-rst.pkt)
-|[TCP Mechanisms](tcp-mechanisms)|12|Failed: [1](tcp-mechanisms/early_retransmit/early-retransmit.pkt)
+|[Socket API](socket-api)        |17|Failed: [1](socket-api/close/README.md)
+|[TCP Mechanisms](tcp-mechanisms)|12|Failed: [1](tcp-mechanisms/early_retransmit/README.md)
 |[TCP State Machine](tcp-fsm)    |17|Failed: [3](tcp-fsm/mss)
 
 ## Possible Scenarios
@@ -109,7 +109,7 @@ There is a huge scope for work yet to be done in this project, and I am not stop
  * _packetdrill_ currently supports testing only a single connection at a time. An attempt will be made to patch it to support multiple concurrent connections.
  * The current remote mode available in _packetdrill_ allows testing a remote host provided there is already an instance of _packetdrill_ running on it. There is not yet support for testing a remote host that does not have _packetdrill_ running. One such approach for enabling support for this can be that instead of getting command line arguments and the script over a TCP connection, the current instance can get it directly. Hence, the logic for handshake with the client will be removed, the packets will be injected and the client will wait for inbound packets.
 
-**Keep in touch with the latest updates in the project via the [FreeBSD-wiki](https://wiki.freebsd.org/SummerOfCode2016/TCP-IP-RegressionTestSuite/).**
+**Keep in touch with the latest updates in the project here or via the [FreeBSD-wiki](https://wiki.freebsd.org/SummerOfCode2016/TCP-IP-RegressionTestSuite/).**
 
 ## Acknowledgements
 I cannot thank my mentor **Hiren Panchasara** enough for all the help and support which he has given in the entire duration of the project. Working in his guidance was full of fun and challenging. I would be extremely grateful to receive his guidance in the future too while I continue to work on this project. <br>
