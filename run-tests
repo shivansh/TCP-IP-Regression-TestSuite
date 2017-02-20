@@ -6,7 +6,7 @@
 ##################################################
 
 # This variable has to be updated to point to the location of packetdrill binary.
-packetdrill=/usr/home/zeebsd/packetdrill/gtests/net/packetdrill/packetdrill
+packetdrill=/usr/local/bin/packetdrill
 directory="$1"
 extension=".pkt"
 
