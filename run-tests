@@ -10,7 +10,7 @@ packetdrill=/usr/local/bin/packetdrill
 directory="$1"
 extension=".pkt"
 
-trap clean_up SIGHUP SIGINT SIGTERM
+trap clean_up HUP INT TERM
 
 clean_up() {
   echo "Cleaning up"
