@@ -27,7 +27,7 @@ if [ -z $packetdrill ]; then
   exit 1
 fi
 
-if [ ! -e $directory ]; then
+if [ ! -e "$directory" ]; then
   echo "File not found!"
   exit 1
 fi
@@ -38,8 +38,8 @@ if test "${directory#*$extension}" != "$directory"; then
 fi
 
 # Check if the argument is a directory
-if [ ! -z $directory ] && [ $pkt_file_flag == 0 ]; then
-  sh update-test-list temp_list $directory
+if [ ! -z "$directory" ] && [ $pkt_file_flag = 0 ]; then
+  sh update-test-list temp_list "$directory"
   file=temp_list
 else
   sh update-test-list tests_list
@@ -53,19 +53,21 @@ failed=0
 
 # Modify values depending on return status
 check_status() {
-  run=`expr $run + 1`
-  if [ $result == 1 ]; then
-    printf "Test Name: ${test}\.pkt\n" >> error.log
-    printf "\---------------------------------------------------------\n" >> error.log
-    cat temp.log >> error.log
-    printf "\n" >> error.log
+  run=$((run + 1))
+  if [ "$result" = 1 ]; then
+    {
+      printf "Test Name: %s\.pkt\n" "${test}"
+      printf "\---------------------------------------------------------\n"
+      cat temp.log
+      printf "\n"
+    } >> error.log
     echo -e "\e[0;31mFAILED\e[0m"
     printf "\---------------------------------------------------------------\n"
-    failed=`expr $failed + 1`
+    failed=$((failed + 1))
   else
     echo -e "\e[1;32mPASSED\e[0m"
     printf "\---------------------------------------------------------------\n"
-    passed=`expr $passed + 1`
+    passed=$((passed + 1))
   fi
 }
 
@@ -74,37 +76,37 @@ printf "\nScript Name                                             Result\n"
 printf "===============================================================\n"
 
 # Check if a single test script or a directory is given as argument
-if [ $pkt_file_flag == 1 ]; then
-  printf "%-55.55s " $directory
-  if [ -e $directory ]; then
+if [ $pkt_file_flag = 1 ]; then
+  printf "%-55.55s " "$directory"
+  if [ -e "$directory" ]; then
     rm -f temp.log
-    $packetdrill -v --tolerance_usecs=1000000 $directory >> temp.log 2>&1
+    $packetdrill -v --tolerance_usecs=1000000 "$directory" >> temp.log 2>&1
     result="`echo $?`"
     check_status
   else
     echo -e "\e[1;33mSKIPPED\e[0m"
-    skipped=`expr $skipped + 1`
+    skipped=$((skipped + 1))
   fi
 
 else
-  while IFS= read test
+  while IFS= read -r test
   do
-    printf "%-55.55s " $test
+    printf "%-55.55s " "$test"
     sleep $delay
-    if [ -e ${test}.pkt ]; then
+    if [ -e "${test}".pkt ]; then
       rm -f temp.log
-      $packetdrill -v --tolerance_usecs=1000000 ${test}.pkt >> temp.log 2>&1
+      $packetdrill -v --tolerance_usecs=1000000 "${test}".pkt >> temp.log 2>&1
       result="`echo $?`"
       check_status
     else
       echo -e "\e[1;33mSKIPPED\e[0m"
-      skipped=`expr $skipped + 1`
+      skipped=$((skipped + 1))
     fi
   done< $file
   rm -f temp.log temp_list
 fi
 
-if [ $run == 0 ]; then
+if [ $run = 0 ]; then
   echo "Make sure that you have specified the correct .pkt file"
   exit 1
 fi
