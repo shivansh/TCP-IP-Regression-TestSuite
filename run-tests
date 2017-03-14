@@ -5,10 +5,15 @@
 # A default tolerance value of 1 second is used. #
 ##################################################
 
-# This variable has to be updated to point to the location of packetdrill binary.
-packetdrill=/usr/local/bin/packetdrill
+if [ `uname` = FreeBSD ]; then
+  packetdrill=/usr/local/bin/packetdrill
+else
+  packetdrill=/usr/bin/packetdrill
+fi
+
 directory="$1"
 extension=".pkt"
+TOLERANCE_USECS=1000000
 
 trap clean_up HUP INT TERM
 
@@ -27,7 +32,7 @@ if [ -z $packetdrill ]; then
   exit 1
 fi
 
-# Handle empty argument
+# Handle invalid argument
 if [ ! -z "$directory" ] && [ ! -e "$directory" ]; then
   echo "File not found!"
   exit 1
@@ -73,6 +78,10 @@ check_status() {
 }
 
 rm -f error.log
+{
+  printf "Error log of tests run at `date`\n"
+  printf "===============================================================\n"
+} > error.log
 printf "\nScript Name                                             Result\n"
 printf "===============================================================\n"
 
@@ -81,7 +90,7 @@ if [ $pkt_file_flag = 1 ]; then
   printf "%-55.55s " "$directory"
   if [ -e "$directory" ]; then
     rm -f temp.log
-    $packetdrill -v --tolerance_usecs=1000000 "$directory" >> temp.log 2>&1
+    $packetdrill -v --tolerance_usecs=$TOLERANCE_USECS "$directory" >> temp.log 2>&1
     result="`echo $?`"
     check_status
   else
@@ -96,7 +105,7 @@ else
     sleep $delay
     if [ -e "${test}".pkt ]; then
       rm -f temp.log
-      $packetdrill -v --tolerance_usecs=1000000 "${test}".pkt >> temp.log 2>&1
+      $packetdrill -v --tolerance_usecs=$TOLERANCE_USECS "${test}".pkt >> temp.log 2>&1
       result="`echo $?`"
       check_status
     else
@@ -108,7 +117,7 @@ else
 fi
 
 if [ $run = 0 ]; then
-  echo "Make sure that you have specified the correct .pkt file"
+  echo -e "\e[0;31mMake sure that you have specified the correct .pkt file\e[0m\n"
   exit 1
 fi
 
@@ -118,7 +127,7 @@ printf "===========================\n"
 printf "Number of tests run: %6d\n" $run
 printf "Number of tests passed: %3d\n" $passed
 printf "Number of tests failed: %3d\n" $failed
-printf "Number of tests skipped: %2d\n" $skipped
+printf "Number of tests skipped: %2d\n\n" $skipped
 
 if [ $failed -ne 0 ]; then
   printf "\nView the log file (error.log) for details\n"
