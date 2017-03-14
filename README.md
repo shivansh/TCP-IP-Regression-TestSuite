@@ -81,12 +81,12 @@ For testing using AF_INET6 sockets with IPv6 traffic -
 Since the IPv6 headers are 20 bytes larger than the IPv4 headers, the MTU has to be set to 1520 to address the extra 20 bytes, rather than the standard size of 1500 bytes.
 
 ### Using the script to automate
-The script [run-tests.sh](https://github.com/shivrai/TCP-IP-Regression-TestSuite/blob/master/run-tests.sh) can be used to automate the tests. The value of the `$packetdrill` variable should be set to the location of the **packetdrill** binary on your machine before running the script.
+The script [run-tests.sh](https://github.com/shivrai/TCP-IP-Regression-TestSuite/blob/master/run-tests.sh) can be used to automate the tests. The value of the `$packetdrill` variable should be set to the location of the **packetdrill** binary on your machine before running the script. The default path is `/usr/local/bin/packetdrill` in FreeBSD and `/usr/bin/packetdrill` in Linux.
 The following command should be used for executing all the tests -
 ```
-sudo sh run-tests.sh <directory/file>
+sudo sh run-tests <directory/file>
 ```
-You can specify the directory for which you want to run the tests. If no directory is specified, the current directory is taken into consideration by default. <br>
+You can specify the directory for which you want to run the tests. **Note:** If no directory/file is specified, then `pwd` is taken into consideration for generating the list of tests (including all the subdirectories). <br>
 **Note:** `sudo` is required only for running the packetdrill binary. <br><br>
 **Update:** Logging functionality is now added in the automation script. After a single run, all the errors are placed in `error.log` in a clean format for easy debugging. <br>
 
