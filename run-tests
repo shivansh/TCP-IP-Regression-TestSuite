@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 ##################################################
 # Automation script for running tests            #
 # A default tolerance value of 1 second is used. #
 ##################################################
 
-if [ `uname` = FreeBSD ]; then
+if [ "$(uname)" = FreeBSD ]; then
   packetdrill=/usr/local/bin/packetdrill
 else
   packetdrill=/usr/bin/packetdrill
@@ -18,8 +18,8 @@ TOLERANCE_USECS=1000000
 trap clean_up HUP INT TERM
 
 clean_up() {
-  echo "Cleaning up"
-  rm -f temp_list temp.log
+  printf "\nCleaning up..."
+  rm -f tests_list temp.log
   exit 1
 }
 
@@ -44,18 +44,21 @@ if test "${directory#*$extension}" != "$directory"; then
 fi
 
 # Check if the argument is a directory
-if [ ! -z "$directory" ] && [ $pkt_file_flag = 0 ]; then
-  sh update-test-list temp_list "$directory"
-  file=temp_list
+if [ ! -z "$directory" ]; then
+  # Avoid generating "tests_list" in every run
+  if [ $pkt_file_flag = 0 ] && [ ! -f "$directory/tests_list" ]; then
+    sh update-test-list "$directory/tests_list" "$directory"
+  fi
+  file="$directory/tests_list"
 else
   sh update-test-list tests_list
 fi
 
-delay=0.2
-run=0
-skipped=0
-passed=0
-failed=0
+delay=0.2     # delay between subsequent tests run
+run=0         # number of tests run
+skipped=0     # number of tests skipped
+passed=0      # number of tests passed
+failed=0      # number of tests failed
 
 # Modify values depending on return status
 check_status() {
@@ -67,11 +70,11 @@ check_status() {
       cat temp.log
       printf "\n"
     } >> error.log
-    echo -e "\e[0;31mFAILED\e[0m"
+    printf "\033[31mFAILED\033[39m\n"
     printf "\---------------------------------------------------------------\n"
     failed=$((failed + 1))
   else
-    echo -e "\e[1;32mPASSED\e[0m"
+    printf "\033[33mPASSED\033[39m\n"
     printf "\---------------------------------------------------------------\n"
     passed=$((passed + 1))
   fi
@@ -79,8 +82,8 @@ check_status() {
 
 rm -f error.log
 {
-  printf "Error log of tests run at `date`\n"
-  printf "===============================================================\n"
+  printf "Error log of tests run at %s\n" "$(date)"
+  printf "===============================================================\n\n"
 } > error.log
 printf "\nScript Name                                             Result\n"
 printf "===============================================================\n"
@@ -91,10 +94,10 @@ if [ $pkt_file_flag = 1 ]; then
   if [ -e "$directory" ]; then
     rm -f temp.log
     $packetdrill -v --tolerance_usecs=$TOLERANCE_USECS "$directory" >> temp.log 2>&1
-    result="`echo $?`"
+    result=$?
     check_status
   else
-    echo -e "\e[1;33mSKIPPED\e[0m"
+    printf "\033[32mSKIPPED\033[39m\n"
     skipped=$((skipped + 1))
   fi
 
@@ -106,18 +109,18 @@ else
     if [ -e "${test}".pkt ]; then
       rm -f temp.log
       $packetdrill -v --tolerance_usecs=$TOLERANCE_USECS "${test}".pkt >> temp.log 2>&1
-      result="`echo $?`"
+      result=$?
       check_status
     else
-      echo -e "\e[1;33mSKIPPED\e[0m"
+      printf "\033[32mSKIPPED\033[39m\n"
       skipped=$((skipped + 1))
     fi
-  done< $file
-  rm -f temp.log temp_list
+  done< "$file"
+  rm -f temp.log tests_list
 fi
 
 if [ $run = 0 ]; then
-  echo -e "\e[0;31mMake sure that you have specified the correct .pkt file\e[0m\n"
+  printf "\033[32mMake sure that you have specified the correct .pkt file\033[39m\n"
   exit 1
 fi
 
@@ -130,5 +133,5 @@ printf "Number of tests failed: %3d\n" $failed
 printf "Number of tests skipped: %2d\n\n" $skipped
 
 if [ $failed -ne 0 ]; then
-  printf "\nView the log file (error.log) for details\n"
+  printf "\nView the log file \"error.log\" for details\n"
 fi

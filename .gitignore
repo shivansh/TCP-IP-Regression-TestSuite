@@ -1,7 +1,7 @@
 # Ignore the log files
 error.log
 temp.log
-tests_list
+*tests_list
 
 # Ignore patch files
 patches
