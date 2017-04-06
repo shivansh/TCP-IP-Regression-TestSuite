@@ -5,8 +5,8 @@
 |:------------------------------------------------:|:---------------:|
 [close-last-ack-lost](close-last-ack-lost.pkt)     | Passed
 [close-read-data-fin](close-read-data-fin.pkt)     | Passed
-[close-write-data-ack](close-write-data-ack.pkt)   | Passed
-[close-unread-data-ack](close-unread-data-ack.pkt) | Failed(Note 1)
+[close-write-data-rst](close-write-data-rst.pkt)   | Passed
+[close-unread-data-rst](close-unread-data-rst.pkt) | Failed(Note 1)
 [simultaneous-close](simultaneous-close.pkt)       | Passed
 
 ## Notes
