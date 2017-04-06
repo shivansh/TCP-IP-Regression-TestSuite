@@ -65,7 +65,7 @@ check_status() {
   run=$((run + 1))
   if [ "$result" = 1 ]; then
     {
-      printf "Test Name: %s\.pkt\n" "${test}"
+      printf "Test Name: %s\n" "$testname" >> error.log
       printf "\---------------------------------------------------------\n"
       cat temp.log
       printf "\n"
@@ -95,6 +95,7 @@ if [ $pkt_file_flag = 1 ]; then
     rm -f temp.log
     $packetdrill -v --tolerance_usecs=$TOLERANCE_USECS "$directory" >> temp.log 2>&1
     result=$?
+    testname=$(basename "$directory")
     check_status
   else
     printf "\033[32mSKIPPED\033[39m\n"
@@ -110,6 +111,7 @@ else
       rm -f temp.log
       $packetdrill -v --tolerance_usecs=$TOLERANCE_USECS "${test}".pkt >> temp.log 2>&1
       result=$?
+      testname=$(basename "$test")
       check_status
     else
       printf "\033[32mSKIPPED\033[39m\n"
