@@ -101,11 +101,10 @@ You can specify the directory for which you want to run the tests. **Note:** If 
 ## Scenarios covered
 
 |**Scenario**|**Number of tests**|**Result (FreeBSD)**|
--------------|:-----------------:|------------------|
+-------------|:-----------------:|--------------------|
 |[ICMP](icmp)                    |1 |Passed
 |[Socket API](socket-api)        |17|Failed: [1](socket-api/close/README.md)
 |[TCP Mechanisms](tcp-mechanisms)|12|Failed: [1](tcp-mechanisms/early_retransmit/README.md)
-|[TCP State Machine](tcp-fsm)    |17|Failed: [3](tcp-fsm/mss)
 
 ## Possible Scenarios
 * ~~Test for half-open connection (last ack getting lost).~~ **Update -** [close-last-ack-lost](socket-api/close/close-last-ack-lost.pkt)
